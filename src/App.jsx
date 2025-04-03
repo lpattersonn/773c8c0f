@@ -1,5 +1,7 @@
+// scr/App.jsx
 import React from 'react';
 import ReactDOM from 'react-dom';
+import AppRouter from './router';
 
 import Header from './Header.jsx';
 
@@ -7,7 +9,7 @@ const App = () => {
   return (
     <div className='container'>
       <Header/>
-      <div className="container-view">Some activities should be here</div>
+      <AppRouter />
     </div>
   );
 };
