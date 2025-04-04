@@ -1,14 +1,14 @@
 // src/App.jsx
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Header from './Header';
+import Header from './components/Header';
 import ActivityFeed from './pages/ActivityFeed';
 import ActivityDetailPage from './pages/ActivityDetailPage';
 import ArchivedCalls from './pages/ArchivedCalls';
 
 const App = () => {
   return (
-    <div className="container">
+    <div className="screen">
       <Header />
       <div className="container-view">
         <Routes>

@@ -2,17 +2,16 @@ import React, { useContext } from 'react';
 import { ActivityContext } from '../context/ActivityContext';
 import ArchiveButton from '../components/ArchiveButton';
 import ActivityCard from '../components/ActivityCard';
-import TabNavigation from '../components/TabNavigation';
 
 const ActivityFeed = () => {
   const { activities, loading, archiveActivity, archiveAllActivities, isAllArchived } = useContext(ActivityContext);
 
   return (
-    <div>
-      <TabNavigation />
+    <>
+    <div className="container">
       {/* <div className="row">
         <div className="col-12"> */}
-          <ArchiveButton onArchive={archiveAllActivities} isArchived={isAllArchived} />
+          {/* <ArchiveButton onArchive={archiveAllActivities} isArchived={isAllArchived} /> */}
         {/* </div>
         <div className="col-12"> */}
           <div className="activity-list">
@@ -24,7 +23,8 @@ const ActivityFeed = () => {
               activities
                 .filter(activity => !activity.is_archived) // Only show non-archived activities
                 .map(activity => (
-                  <div key={activity.id} onClick={() => archiveActivity(activity.id)}>
+                  // <div key={activity.id} onClick={() => archiveActivity(activity.id)}>
+                  <div key={activity.id}>
                     <ActivityCard activity={activity} />
                   </div>
                 ))
@@ -32,7 +32,8 @@ const ActivityFeed = () => {
           </div>
         {/* </div>
       </div> */}
-    </div>
+      </div>
+    </>
   );
 };
 

@@ -1,3 +1,4 @@
+@import url("https://fonts.cdnfonts.com/css/rimouski");
 #app {
   position: absolute;
   display: flex;
@@ -9,16 +10,19 @@
   bottom: 0;
 }
 #app .container {
+  padding: 0 20px;
+}
+#app .screen {
   width: 376px;
   height: 666px;
   z-index: 100;
   background: white;
   border-radius: 55px;
-  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.9);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2), 0 6px 6px rgba(0, 0, 0, 0.1);
   overflow: auto;
   scrollbar-width: none;
 }
-#app .container .container-view {
+#app .screen .container-view {
   padding: 0;
   height: calc(100% - 40px);
   display: flex;
@@ -30,137 +34,128 @@ html, body, h1, h2, h3, ul, li {
   margin: 0;
   padding: 0;
   border: 0;
-  font: inherit;
+  font-family: "Rimouski", sans-serif;
   font-size: 100%;
 }
 
 body {
-  background: #233142;
+  background: #ffffff;
   font-family: helvetica, arial, sans-serif;
   font-size: 13px;
-  color: #333333;
+  color: #000;
   line-height: 1;
 }
 
-header {
-  height: 67px;
-  margin: 0 auto;
-  padding: 20px 0;
-  text-align: center;
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+.checkbox {
+  width: 15px;
+  height: 15px;
+  border-radius: 2px;
+  border: 2px solid #FF8000;
+  background-color: white;
+  cursor: pointer;
+  appearance: none;
+  transition: all 0.2s ease;
+  position: relative;
 }
-
-header svg {
-  display: block;
-  width: 100%;
-  height: 100%;
+.checkbox:checked {
+  background-color: #FF8000;
+  border-color: #FF8000;
+}
+.checkbox:checked::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 4px;
+  width: 4px;
+  height: 8px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
 }
 
 .tab-navigation {
-  display: flex;
-  justify-content: space-between; /* Adjusted to space out links properly */
-  margin: 20px 0;
+  padding-top: 40px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.35);
 }
-.tab-navigation .tab-link {
+.tab-navigation__header {
+  margin-bottom: 15px;
+}
+.tab-navigation__header .container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.tab-navigation__header .container .logo svg {
+  width: 70px;
+  height: 30px;
+}
+.tab-navigation__header .container .actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.tab-navigation__header .container .actions .checkbox {
+  padding-left: 11px;
+  margin-left: 11px;
+}
+.tab-navigation__title {
+  font-size: 1.5rem;
+  margin: 0;
+}
+.tab-navigation__links {
+  display: flex;
+  flex-direction: row;
+}
+.tab-navigation__link {
+  width: 50%;
+  padding: 10px;
   text-decoration: none;
-  color: #000;
-  font-weight: normal;
-  font-size: 13px;
-  padding: 5px 10px;
-  transition: color 0.3s, border-bottom 0.3s;
-  white-space: nowrap;
-  max-width: 100%;
-  width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  height: 50px;
-  display: flex;
-  justify-content: left;
-  align-items: end;
-  border-radius: 10px;
+  text-align: center;
+  color: #636363;
+  transition: background-color 0.3s ease;
+  display: block;
+  position: relative;
 }
-.tab-navigation .tab-link.activity-feed {
-  background-color: rgb(251, 239, 255);
-}
-.tab-navigation .tab-link.archived-calls {
-  background-color: rgb(244, 239, 255);
-}
-.tab-navigation .tab-link:hover {
-  color: #45a049;
-  border-bottom: 2px solid #45a049;
+.tab-navigation__link--active:after {
+  content: "";
+  position: absolute;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background-color: #FF8000;
 }
 
 .archive-button {
   width: 100%;
-  padding: 15px 20px;
+  padding: 5px 10px;
   border: none;
   border-radius: 5px;
+  background-color: #FF8000;
+  font-size: 12px;
+  color: #ffffff;
+  font-weight: 600;
 }
 
 /* Activity Feed Styles */
-.activity-list {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  padding: 15px;
-  max-height: 100%; /* Ensure it doesn't overflow the container */
-}
-
 .activity-card {
-  display: flex;
-  flex-direction: column;
-  background: #f9f9f9; /* Subtle background to stand out from the container */
-  border-radius: 6px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Slightly larger shadow for depth */
-  padding: 20px;
-  transition: transform 0.2s ease, box-shadow 0.3s ease; /* Smooth transition for hover */
-  cursor: pointer;
-}
-.activity-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
-}
-.activity-card img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 6px;
-  margin-bottom: 15px; /* Spacing between image and text */
-}
-.activity-card .activity-card h3 {
-  margin-top: 10px;
-  font-size: 18px; /* Larger font size for headers */
-  font-weight: 600;
-  color: #333; /* Dark text for clarity */
-}
-.activity-card .activity-card p {
-  color: #666666;
-  font-size: 14px;
-  margin-bottom: 5px; /* Space between paragraphs */
-}
-.activity-card .activity-card .info {
   display: flex;
   justify-content: space-between;
-  font-size: 13px;
-  color: #888;
-  margin-top: 10px;
-}
-
-.activity-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  max-height: calc(100% - 60px);
-  overflow-y: auto;
-  padding-right: 0;
-  padding: 0;
-  margin-top: 20px;
-}
-
-.activity-card {
-  display: flex;
-  flex-direction: row;
   align-items: center;
-  margin-bottom: 0;
+  padding: 17px 0;
+  cursor: pointer;
+  border-bottom: 1px solid #D9D9D9;
+}
+.activity-card:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+.activity-card__content {
+  display: flex;
+  align-items: center;
+  flex: 1;
 }
 .activity-card__image {
   width: 30px;
@@ -175,8 +170,60 @@ header svg {
   width: 100%;
   height: 100%;
   margin-top: 2px;
+  object-fit: cover;
   color: white;
 }
 .activity-card__info {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 7px;
+}
+.activity-card__info-heading {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.activity-card__name {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+  line-height: 1.2;
+}
+.activity-card__meta {
+  color: #636363;
   margin-bottom: 0;
+}
+.activity-card__meta i {
+  margin-right: 1px;
+  color: #636363;
+}
+.activity-card__actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.activity-card__date-text {
+  margin: 0;
+}
+.activity-card__separator {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.activity-card__dot {
+  width: 4px;
+  height: 4px;
+  background-color: #D9D9D9;
+  border-radius: 100%;
+}
+
+.activity-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 0 0 20px;
+  max-height: 100%;
 }

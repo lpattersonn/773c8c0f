@@ -1,24 +1,93 @@
 .activity-card {
   display: flex;
-  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
-  margin-bottom: 0;
-    &__image {
-        width: 30px;
-        height: 30px;
-        background-color: $speer-grey;
-        border-radius: 100%;
-        padding: 5px 3px 0;
-        overflow: hidden;
-        margin-right: 5px;
-      img {
-        width: 100%;
-        height: 100%;
-        margin-top: 2px;
-        color: white;
-      }  
+  padding: 17px 0;
+  cursor: pointer;
+  border-bottom: 1px solid $speer-grey;
+
+  &:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+  }
+
+  &__content {
+    display: flex;
+    align-items: center;
+    flex: 1;
+  }
+
+  &__image {
+    width: 30px;
+    height: 30px;
+    background-color: $speer-grey;
+    border-radius: 100%;
+    padding: 5px 3px 0;
+    overflow: hidden;
+    margin-right: 5px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      margin-top: 2px;
+      object-fit: cover;
+      color: white;
     }
-    &__info {
-      margin-bottom: 0;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 7px;
+    &-heading {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
     }
+  }
+
+  &__name {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  &__meta {
+    color: $speer-dark-grey;
+    margin-bottom: 0;
+
+    i {
+      margin-right: 1px;
+      color: $speer-dark-grey;
+    }
+  }
+
+  &__actions {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  &__date {
+    &-text {
+      margin: 0;
+    }
+  }
+
+  &__separator {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  &__dot {
+    width: 4px;
+    height: 4px;
+    background-color: $speer-grey;
+    border-radius: 100%;
+  }
 }

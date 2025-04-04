@@ -3,6 +3,18 @@ import React from 'react';
 import Avatar from '../assets/images/avatar.svg';
 
 const ActivityCard = ({ activity }) => {
+  // Get the date
+  const formatDate = (isoString) => {
+    const date = new Date(isoString);
+    return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+  };
+
+  // Get the time
+  const formatTime = (isoString) => {
+    const date = new Date(isoString);
+    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  };
+
   // Get a readable description based on the call type
   const getCallTypeLabel = () => {
     const callTypeMap = {
@@ -23,14 +35,29 @@ const ActivityCard = ({ activity }) => {
 
   return (
     <div className="activity-card">
-      <div className="activity-card__image">
-        <img src={Avatar} alt={`User image from ${displayName}`} />
-      </div>
-      <div className="activity-card__details">
-        <h3 className="activity-card__name">{displayName}</h3>
-        <p className="activity-card__info">
-          <i className={callIcon}></i> {`${getCallTypeLabel()} ${counterparty}`}
-        </p>
+      <div className="activity-card__content">
+        <div className="activity-card__image">
+          <img src={Avatar} alt={`User image from ${displayName}`} />
+        </div>
+        <div className="activity-card__info">
+          <div className="activity-card__info-heading">
+            <h3 className="activity-card__name">{displayName}</h3>
+            <div className="activity-card__actions">
+              <div className="activity-card__date">
+                <p className="activity-card__date-text">{formatDate(activity?.created_at)}</p>
+              </div>
+              <div className="activity-card__separator">
+                <div className="activity-card__dot"></div>
+                <div className="activity-card__dot"></div>
+                <div className="activity-card__dot"></div>
+              </div>
+              <input className="checkbox" type="checkbox" data-activity-type={activity.id} />
+            </div>
+          </div>
+          <p className="activity-card__meta small">
+            <i className={callIcon}></i> {`${getCallTypeLabel()} ${counterparty} at ${formatTime(activity?.created_at)}`}
+          </p>
+        </div>
       </div>
     </div>
   );
