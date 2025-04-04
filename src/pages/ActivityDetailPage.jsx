@@ -11,7 +11,7 @@ const ActivityDetailPage = () => {
       const data = await fetchActivitiesDetails(id);
       setActivity(data);
     };
-
+    
     getActivityDetails();
   }, [id]);
 
@@ -19,12 +19,14 @@ const ActivityDetailPage = () => {
 
   return (
     <div className="activity-details">
-      <h2>Activity Detail</h2>
-      <p><strong>From:</strong> {activity.from}</p>
-      <p><strong>To:</strong> {activity.to}</p>
-      <p><strong>Duration:</strong> {activity.duration}</p>
-      <p><strong>Call Type:</strong> {activity.call_type}</p>
-      <p><strong>Direction:</strong> {activity.direction}</p>
+      <div className="container">
+        <h2>Activity Detail</h2>
+        <p><strong>From:</strong> {activity.from}</p>
+        <p><strong>To:</strong> {activity.to}</p>
+        <p><strong>Duration:</strong> {activity.duration}</p>
+        <p><strong>Call Type:</strong> {activity.call_type}</p>
+        <p><strong>Direction:</strong> {activity.direction}</p>
+      </div>
     </div>
   );
 };

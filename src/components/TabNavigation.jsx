@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { ActivityContext } from '../context/ActivityContext';
 import { Link } from 'react-router-dom';
 import { ReactComponent as Logo } from '../assets/images/logo.svg';
 import ArchiveButton from './ArchiveButton';
 
 const TabNavigation = () => {
   const [activeTab, setActiveTab] = useState("/");
+  const { activities, loading, archiveActivity, archiveAllActivities, isAllArchived } = useContext(ActivityContext);
 
   return (
     <div className="tab-navigation">
@@ -12,10 +14,12 @@ const TabNavigation = () => {
             <div className="tab-navigation__header">
                 <div className="container">
                     <div className="logo">
-                        <Logo />
+                        <Link to="/" onClick={() => setActiveTab("/")}>
+                            <Logo />
+                        </Link>
                     </div>
                     <div className="actions">
-                        <ArchiveButton />
+                        <ArchiveButton onArchive={archiveAllActivities} isArchived={isAllArchived} />
                         <input className="checkbox" type="checkbox" />
                     </div>
                 </div>

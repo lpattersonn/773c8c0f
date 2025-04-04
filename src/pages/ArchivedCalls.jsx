@@ -8,26 +8,25 @@ const ArchivedCalls = () => {
   const { activities, loading, unarchiveActivity, unarchiveAllActivities } = useContext(ActivityContext);
 
   return (
-    <div>
-      <TabNavigation />
-      <ArchiveButton onArchive={unarchiveAllActivities} isArchived={true} />
-
-      <div className="activity-list">
-        {loading ? (
-          <p>Loading...</p>
-        ) : activities.length === 0 ? (
-          <p>No archived activities available.</p>
-        ) : (
-          activities
-            .filter(activity => activity.is_archived) // Only show archived activities
-            .map(activity => (
-                <div key={activity.id} onClick={() => unarchiveActivity(activity.id)}>
-                    <ActivityCard activity={activity} />
-                </div>
-            ))
-        )}
+    <>
+      <div className="container">
+        <div className="activity-list">
+          {loading ? (
+            <p>Loading...</p>
+          ) : activities.length === 0 ? (
+            <p>No archived activities available.</p>
+          ) : (
+            activities
+              .filter(activity => activity.is_archived) // Only show archived activities
+              .map(activity => (
+                  <div key={activity.id} onClick={() => unarchiveActivity(activity.id)}>
+                      <ActivityCard activity={activity} />
+                  </div>
+              ))
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
