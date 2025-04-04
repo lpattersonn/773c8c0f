@@ -1,19 +1,24 @@
-// scr/App.jsx
+// src/App.jsx
 import React from 'react';
-import ReactDOM from 'react-dom';
-import AppRouter from './router';
-
-import Header from './Header.jsx';
+import { Routes, Route } from 'react-router-dom';
+import Header from './Header';
+import ActivityFeed from './pages/ActivityFeed';
+import ActivityDetailPage from './pages/ActivityDetailPage';
+import ArchivedCalls from './pages/ArchivedCalls';
 
 const App = () => {
   return (
-    <div className='container'>
-      <Header/>
-      <AppRouter />
+    <div className="container">
+      <Header />
+      <div className="container-view">
+        <Routes>
+          <Route path="/" element={<ActivityFeed />} />
+          <Route path="/activity/:id" element={<ActivityDetailPage />} />
+          <Route path="/archived" element={<ArchivedCalls />} />
+        </Routes>
+      </div>
     </div>
   );
 };
-
-ReactDOM.render(<App/>, document.getElementById('app'));
 
 export default App;

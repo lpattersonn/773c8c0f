@@ -1,14 +1,14 @@
+// src/components/ActivityCard.jsx
 import React from 'react';
 
 const ActivityCard = ({ activity }) => {
-    return (
-        <div className="activity-card">
-            <p><strong>From:</strong> {activity.from}</p>
-            <p><strong>To:</strong> {activity.to}</p>
-            <p><strong>Call Type:</strong> {activity.call_type}</p>
-            <p><strong>Direction:</strong> {activity.direction}</p>
-        </div>
-    )
+  return (
+    <div className="activity-card">
+      <h3>{activity.call_type}</h3>
+      <p>{activity.from} to {activity.to}</p>
+      <p>Duration: {activity.duration}s</p>
+    </div>
+  );
 };
 
 export default ActivityCard;
