@@ -1,0 +1,24 @@
+.activity-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 0;
+    &__image {
+        width: 30px;
+        height: 30px;
+        background-color: $speer-grey;
+        border-radius: 100%;
+        padding: 5px 3px 0;
+        overflow: hidden;
+        margin-right: 5px;
+      img {
+        width: 100%;
+        height: 100%;
+        margin-top: 2px;
+        color: white;
+      }  
+    }
+    &__info {
+      margin-bottom: 0;
+    }
+}

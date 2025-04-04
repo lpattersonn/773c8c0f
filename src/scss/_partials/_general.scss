@@ -14,28 +14,19 @@
       height: 666px;
       z-index: 100;
       background: white;
-      border-radius: 3px;
+      border-radius: 55px;
       box-shadow: 0 0 5px 0 rgba(0, 0, 0, .9);
       overflow: auto; // Prevent overflow from exceeding container boundary
+      scrollbar-width: none;
   
       .container-view {
-        padding: 20px;
+        padding: 0;
         height: calc(100% - 40px); // Deducting the height of header or fixed padding/margins
         display: flex;
         flex-direction: column;
         justify-content: space-between; // Spread out the content inside container-view
       }
     }
-  }
-  
-  // Activity List
-  .activity-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px; // Adjust gap between items
-    max-height: calc(100% - 60px); // Adjust based on header and padding
-    overflow-y: auto; // Allow scrolling if content overflows
-    padding-right: 10px; // Prevent scrollbar overlap with content
   }
   
   // Body
@@ -57,7 +48,7 @@
   
   // Header  
   header {
-    height: 40px;
+    height: 67px;
     margin: 0 auto;
     padding: 20px 0;
     text-align: center;

@@ -10,24 +10,28 @@ const ActivityFeed = () => {
   return (
     <div>
       <TabNavigation />
-      <h2>Activity Feed</h2>
-      <ArchiveButton onArchive={archiveAllActivities} isArchived={isAllArchived} />
-
-      <div className="activity-list">
-        {loading ? (
-          <p>Loading...</p>
-        ) : activities.length === 0 ? (
-          <p>No activities available.</p>
-        ) : (
-          activities
-            .filter(activity => !activity.is_archived) // Only show non-archived activities
-            .map(activity => (
-              <div key={activity.id} onClick={() => archiveActivity(activity.id)}>
-                <ActivityCard activity={activity} />
-              </div>
-            ))
-        )}
-      </div>
+      {/* <div className="row">
+        <div className="col-12"> */}
+          <ArchiveButton onArchive={archiveAllActivities} isArchived={isAllArchived} />
+        {/* </div>
+        <div className="col-12"> */}
+          <div className="activity-list">
+            {loading ? (
+              <p>Loading...</p>
+            ) : activities.length === 0 ? (
+              <p>No activities available.</p>
+            ) : (
+              activities
+                .filter(activity => !activity.is_archived) // Only show non-archived activities
+                .map(activity => (
+                  <div key={activity.id} onClick={() => archiveActivity(activity.id)}>
+                    <ActivityCard activity={activity} />
+                  </div>
+                ))
+            )}
+          </div>
+        {/* </div>
+      </div> */}
     </div>
   );
 };

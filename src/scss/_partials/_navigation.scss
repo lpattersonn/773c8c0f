@@ -1,26 +1,35 @@
 .tab-navigation {
     display: flex;
     justify-content: space-between; /* Adjusted to space out links properly */
-    margin-top: 20px;
-    border-bottom: 2px solid #ccc;
-    padding-bottom: 10px;
+    margin: 20px 0;
   
     .tab-link {
       text-decoration: none;
-      color: #4CAF50;
-      font-weight: bold;
-      font-size: 16px;
+      color: $speer-black;
+      font-weight: normal;
+      font-size: 13px;
       padding: 5px 10px;
       transition: color 0.3s, border-bottom 0.3s;
-      white-space: nowrap; /* Prevent text from breaking */
-      max-width: 100%; /* Ensure the link never exceeds the container's width */
+      white-space: nowrap;
+      max-width: 100%;
+      width: 100%;
       overflow: hidden;
-      text-overflow: ellipsis; /* Add ellipsis if the text overflows */
-    }
-  
-    .tab-link:hover {
-      color: #45a049;
-      border-bottom: 2px solid #45a049;
+      text-overflow: ellipsis;
+      height: 50px;
+      display: flex;
+      justify-content: left;
+      align-items: end;
+      border-radius: 10px;
+      &.activity-feed {
+        background-color: $speer-pink;
+      }
+      &.archived-calls {
+        background-color: $speer-purple;
+      }
+      &:hover {
+        color: #45a049;
+        border-bottom: 2px solid #45a049;
+      }
     }
   }
   

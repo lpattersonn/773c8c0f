@@ -10,7 +10,6 @@ const ArchivedCalls = () => {
   return (
     <div>
       <TabNavigation />
-      <h2>Archived Calls</h2>
       <ArchiveButton onArchive={unarchiveAllActivities} isArchived={true} />
 
       <div className="activity-list">

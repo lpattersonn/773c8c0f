@@ -13,25 +13,17 @@
   height: 666px;
   z-index: 100;
   background: white;
-  border-radius: 3px;
+  border-radius: 55px;
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.9);
   overflow: auto;
+  scrollbar-width: none;
 }
 #app .container .container-view {
-  padding: 20px;
+  padding: 0;
   height: calc(100% - 40px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-}
-
-.activity-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  max-height: calc(100% - 60px);
-  overflow-y: auto;
-  padding-right: 10px;
 }
 
 html, body, h1, h2, h3, ul, li {
@@ -51,7 +43,7 @@ body {
 }
 
 header {
-  height: 40px;
+  height: 67px;
   margin: 0 auto;
   padding: 20px 0;
   text-align: center;
@@ -64,13 +56,53 @@ header svg {
   height: 100%;
 }
 
+.tab-navigation {
+  display: flex;
+  justify-content: space-between; /* Adjusted to space out links properly */
+  margin: 20px 0;
+}
+.tab-navigation .tab-link {
+  text-decoration: none;
+  color: #000;
+  font-weight: normal;
+  font-size: 13px;
+  padding: 5px 10px;
+  transition: color 0.3s, border-bottom 0.3s;
+  white-space: nowrap;
+  max-width: 100%;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 50px;
+  display: flex;
+  justify-content: left;
+  align-items: end;
+  border-radius: 10px;
+}
+.tab-navigation .tab-link.activity-feed {
+  background-color: rgb(251, 239, 255);
+}
+.tab-navigation .tab-link.archived-calls {
+  background-color: rgb(244, 239, 255);
+}
+.tab-navigation .tab-link:hover {
+  color: #45a049;
+  border-bottom: 2px solid #45a049;
+}
+
+.archive-button {
+  width: 100%;
+  padding: 15px 20px;
+  border: none;
+  border-radius: 5px;
+}
+
 /* Activity Feed Styles */
 .activity-list {
   display: flex;
   flex-direction: column;
   gap: 15px;
   padding: 15px;
-  overflow-y: auto;
   max-height: 100%; /* Ensure it doesn't overflow the container */
 }
 
@@ -113,26 +145,38 @@ header svg {
   margin-top: 10px;
 }
 
-.tab-navigation {
+.activity-list {
   display: flex;
-  justify-content: space-between; /* Adjusted to space out links properly */
+  flex-direction: column;
+  gap: 10px;
+  max-height: calc(100% - 60px);
+  overflow-y: auto;
+  padding-right: 0;
+  padding: 0;
   margin-top: 20px;
-  border-bottom: 2px solid #ccc;
-  padding-bottom: 10px;
 }
-.tab-navigation .tab-link {
-  text-decoration: none;
-  color: #4CAF50;
-  font-weight: bold;
-  font-size: 16px;
-  padding: 5px 10px;
-  transition: color 0.3s, border-bottom 0.3s;
-  white-space: nowrap; /* Prevent text from breaking */
-  max-width: 100%; /* Ensure the link never exceeds the container's width */
+
+.activity-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 0;
+}
+.activity-card__image {
+  width: 30px;
+  height: 30px;
+  background-color: #D9D9D9;
+  border-radius: 100%;
+  padding: 5px 3px 0;
   overflow: hidden;
-  text-overflow: ellipsis; /* Add ellipsis if the text overflows */
+  margin-right: 5px;
 }
-.tab-navigation .tab-link:hover {
-  color: #45a049;
-  border-bottom: 2px solid #45a049;
+.activity-card__image img {
+  width: 100%;
+  height: 100%;
+  margin-top: 2px;
+  color: white;
+}
+.activity-card__info {
+  margin-bottom: 0;
 }

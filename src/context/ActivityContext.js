@@ -18,6 +18,8 @@ export const ActivityProvider = ({ children }) => {
     getActivities();
   }, []);
 
+  console.log(activities);
+
   // Archive a single activity
   const archiveActivity = (id) => {
     setActivities(activities.map(activity =>
