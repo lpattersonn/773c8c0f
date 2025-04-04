@@ -7,19 +7,16 @@ import TabNavigation from '../components/TabNavigation';
 const ActivityFeed = () => {
   const context = useContext(ActivityContext);
 
-  // Debugging logs
-  console.log('ActivityFeed Context:', context);
-
   if (!context || !context.activities) {
-    return <p>Loading...</p>;
+    return <p className="loading">Loading...</p>;
   }
 
   const { activities } = context;
 
   return (
-    <div>
+    <div className="activity-feed">
       <TabNavigation />
-      <h2>Activity Feed</h2>
+      <h2 className="activity-feed-title">Activity Feed</h2>
       <div className="activity-list">
         {activities.length === 0 ? (
           <p>No activities available.</p>

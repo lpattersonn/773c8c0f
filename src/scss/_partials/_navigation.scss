@@ -1,0 +1,26 @@
+.tab-navigation {
+    display: flex;
+    justify-content: space-between; /* Adjusted to space out links properly */
+    margin-top: 20px;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 10px;
+  
+    .tab-link {
+      text-decoration: none;
+      color: #4CAF50;
+      font-weight: bold;
+      font-size: 16px;
+      padding: 5px 10px;
+      transition: color 0.3s, border-bottom 0.3s;
+      white-space: nowrap; /* Prevent text from breaking */
+      max-width: 100%; /* Ensure the link never exceeds the container's width */
+      overflow: hidden;
+      text-overflow: ellipsis; /* Add ellipsis if the text overflows */
+    }
+  
+    .tab-link:hover {
+      color: #45a049;
+      border-bottom: 2px solid #45a049;
+    }
+  }
+  

@@ -1,0 +1,20 @@
+// Activity Detail page
+.activity-details {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 6px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
+  
+    p {
+      margin: 8px 0;
+      font-size: 14px;
+    }
+  
+    h2 {
+      margin-bottom: 15px;
+      font-size: 22px;
+      font-weight: bold;
+      color: $primary-color;
+    }
+}
