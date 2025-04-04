@@ -1,8 +1,13 @@
 // src/components/ActivityCard.jsx
-import React from 'react';
+import React, {useContext} from 'react';
 import Avatar from '../assets/images/avatar.svg';
+import { ActivityContext } from '../context/ActivityContext';
 
 const ActivityCard = ({ activity }) => {
+  const { selectedActivities, toggleSelectActivity } = useContext(ActivityContext);
+
+  const isChecked = selectedActivities.includes(activity.id);
+
   // Get the date
   const formatDate = (isoString) => {
     const date = new Date(isoString);
@@ -51,7 +56,12 @@ const ActivityCard = ({ activity }) => {
                 <div className="activity-card__dot"></div>
                 <div className="activity-card__dot"></div>
               </div>
-              <input className="checkbox" type="checkbox" data-activity-type={activity.id} />
+              <input
+                className="checkbox"
+                type="checkbox"
+                checked={isChecked}
+                onChange={() => toggleSelectActivity(activity.id)}
+              />
             </div>
           </div>
           <p className="activity-card__meta small">

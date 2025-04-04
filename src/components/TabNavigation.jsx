@@ -6,7 +6,24 @@ import ArchiveButton from './ArchiveButton';
 
 const TabNavigation = () => {
   const [activeTab, setActiveTab] = useState("/");
-  const { activities, loading, archiveActivity, archiveAllActivities, isAllArchived } = useContext(ActivityContext);
+  const {
+    archiveAllActivities,
+    isAllArchived,
+    selectedActivities,
+    selectAllActivities,
+    unselectAllActivities,
+    activities
+  } = useContext(ActivityContext);
+
+  const allSelected = selectedActivities.length === activities.length;
+
+  const toggleSelectAll = () => {
+    if (allSelected) {
+      unselectAllActivities();
+    } else {
+      selectAllActivities();
+    }
+  };
 
   return (
     <div className="tab-navigation">
@@ -20,7 +37,13 @@ const TabNavigation = () => {
                     </div>
                     <div className="actions">
                         <ArchiveButton onArchive={archiveAllActivities} isArchived={isAllArchived} />
-                        <input className="checkbox" type="checkbox" />
+                        <input
+                            className="checkbox"
+                            type="checkbox"
+                            checked={allSelected}
+                            onChange={toggleSelectAll}
+                            title="Select all"
+                        />
                     </div>
                 </div>
             </div>

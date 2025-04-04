@@ -5,6 +5,7 @@ export const ActivityContext = createContext();
 
 export const ActivityProvider = ({ children }) => {
   const [activities, setActivities] = useState([]);
+  const [selectedActivities, setSelectedActivities] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isAllArchived, setIsAllArchived] = useState(false); // Track if all are archived
 
@@ -36,13 +37,16 @@ export const ActivityProvider = ({ children }) => {
 
   // Archive all activities
   const archiveAllActivities = () => {
-    const updatedActivities = activities.map(activity => ({
-      ...activity,
-      is_archived: !isAllArchived, // Toggle all activities' archived status
-    }));
+    const updatedActivities = activities.map(activity =>
+      selectedActivities.includes(activity.id)
+        ? { ...activity, is_archived: !isAllArchived }
+        : activity
+    );
     setActivities(updatedActivities);
-    setIsAllArchived(!isAllArchived); // Toggle the all-archived state
+    setIsAllArchived(!isAllArchived);
+    setSelectedActivities([]); // optionally clear selection
   };
+  
 
   // Unarchive all activities (in Archived tab)
   const unarchiveAllActivities = () => {
@@ -54,8 +58,32 @@ export const ActivityProvider = ({ children }) => {
     setIsAllArchived(false); // Reset archived state
   };
 
+
+  const toggleSelectActivity = (id) => {
+    setSelectedActivities(prev =>
+      prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]
+    );
+  };
+  
+  const selectAllActivities = () => {
+    const allIds = activities.map(a => a.id);
+    setSelectedActivities(allIds);
+  };
+  
+  const unselectAllActivities = () => {
+    setSelectedActivities([]);
+  };
+  
+
   return (
-    <ActivityContext.Provider value={{ activities, loading, archiveActivity, unarchiveActivity, archiveAllActivities, unarchiveAllActivities, isAllArchived }}>
+    <ActivityContext.Provider value={{
+      activities, loading,
+      archiveActivity, unarchiveActivity,
+      archiveAllActivities, unarchiveAllActivities,
+      isAllArchived,
+      selectedActivities, toggleSelectActivity,
+      selectAllActivities, unselectAllActivities
+    }}>
       {children}
     </ActivityContext.Provider>
   );

@@ -19,9 +19,9 @@ const ArchivedCalls = () => {
             activities
               .filter(activity => activity.is_archived) // Only show archived activities
               .map(activity => (
-                  <div key={activity.id} onClick={() => unarchiveActivity(activity.id)}>
+                  // <div key={activity.id} onClick={() => unarchiveActivity(activity.id)}>
                       <ActivityCard activity={activity} />
-                  </div>
+                  // </div>
               ))
           )}
         </div>
