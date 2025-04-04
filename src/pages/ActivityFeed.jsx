@@ -1,32 +1,30 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
 import { ActivityContext } from '../context/ActivityContext';
+import ArchiveButton from '../components/ArchiveButton';
 import ActivityCard from '../components/ActivityCard';
 import TabNavigation from '../components/TabNavigation';
 
 const ActivityFeed = () => {
-  const context = useContext(ActivityContext);
-
-  if (!context || !context.activities) {
-    return <p className="loading">Loading...</p>;
-  }
-
-  const { activities } = context;
+  const { activities, loading, archiveActivity, archiveAllActivities, isAllArchived } = useContext(ActivityContext);
 
   return (
-    <div className="activity-feed">
+    <div>
       <TabNavigation />
-      <h2 className="activity-feed-title">Activity Feed</h2>
+      <h2>Activity Feed</h2>
+      <ArchiveButton onArchive={archiveAllActivities} isArchived={isAllArchived} />
+
       <div className="activity-list">
-        {activities.length === 0 ? (
+        {loading ? (
+          <p>Loading...</p>
+        ) : activities.length === 0 ? (
           <p>No activities available.</p>
         ) : (
           activities
-            .filter(activity => !activity.is_archived)
+            .filter(activity => !activity.is_archived) // Only show non-archived activities
             .map(activity => (
-              <Link key={activity.id} to={`/activity/${activity.id}`}>
+              <div key={activity.id} onClick={() => archiveActivity(activity.id)}>
                 <ActivityCard activity={activity} />
-              </Link>
+              </div>
             ))
         )}
       </div>

@@ -1,23 +1,32 @@
-// src/pages/ArchivedCalls.jsx
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
 import { ActivityContext } from '../context/ActivityContext';
 import ActivityCard from '../components/ActivityCard';
+import ArchiveButton from '../components/ArchiveButton';
 import TabNavigation from '../components/TabNavigation';
 
 const ArchivedCalls = () => {
-  const { activities } = useContext(ActivityContext); // Get activities from context
+  const { activities, loading, unarchiveActivity, unarchiveAllActivities } = useContext(ActivityContext);
 
   return (
     <div>
       <TabNavigation />
       <h2>Archived Calls</h2>
+      <ArchiveButton onArchive={unarchiveAllActivities} isArchived={true} />
+
       <div className="activity-list">
-        {activities.filter(activity => activity.is_archived).map(activity => (
-          <Link key={activity.id} to={`/activity/${activity.id}`}>
-            <ActivityCard activity={activity} />
-          </Link>
-        ))}
+        {loading ? (
+          <p>Loading...</p>
+        ) : activities.length === 0 ? (
+          <p>No archived activities available.</p>
+        ) : (
+          activities
+            .filter(activity => activity.is_archived) // Only show archived activities
+            .map(activity => (
+                <div key={activity.id} onClick={() => unarchiveActivity(activity.id)}>
+                    <ActivityCard activity={activity} />
+                </div>
+            ))
+        )}
       </div>
     </div>
   );
