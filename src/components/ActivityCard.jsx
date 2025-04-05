@@ -49,7 +49,7 @@ const ActivityCard = ({ activity }) => {
             <h3 className="activity-card__name">{displayName}</h3>
             <div className="activity-card__actions">
               <div className="activity-card__date">
-                <p className="activity-card__date-text">{formatDate(activity?.created_at)}</p>
+                <p className="activity-card__date-text small">{formatDate(activity?.created_at)}</p>
               </div>
               <div className="activity-card__separator">
                 <div className="activity-card__dot"></div>

@@ -36,7 +36,11 @@ const TabNavigation = () => {
                         </Link>
                     </div>
                     <div className="actions">
-                        <ArchiveButton onArchive={archiveAllActivities} isArchived={isAllArchived} />
+                        <ArchiveButton
+                            onArchive={archiveAllActivities}
+                            selectedActivities={selectedActivities}
+                            activities={activities}
+                        />
                         <input
                             className="checkbox"
                             type="checkbox"
