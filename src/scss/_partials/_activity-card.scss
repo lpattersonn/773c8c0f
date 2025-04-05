@@ -4,7 +4,7 @@
   align-items: center;
   cursor: pointer;
   border-bottom: 1px solid $speer-grey;
-  padding: 15px 10px;
+  padding: 16px 10px;
   &:hover {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s ease, box-shadow 0.3s ease;
@@ -40,18 +40,19 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    gap: 7px;
+    gap: 8px;
     &-heading {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
+
     }
   }
 
-  &__name {
-    font-size: 1rem;
-    font-weight: 500;
+  &__header {
+    font-size: 12px;
+    font-weight: 600;
     margin: 0;
     line-height: 1.2;
   }

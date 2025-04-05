@@ -31,7 +31,20 @@ const ActivityCard = ({ activity, isArchived }) => {
     return callTypeMap[activity?.call_type] || 'Received a voicemail from';
   };
 
-  const displayName = activity?.direction === 'inbound' ? activity?.to : activity?.via;
+  const cardHeader = activity?.direction === 'inbound' ? activity?.to : activity?.via;
+
+  const getDisplayName = () => {
+    const from = activity?.from || 'Unknown';
+    const to = activity?.to || 'Unknown';
+    const via = activity?.via || 'Unknown';
+  
+    if (activity?.direction === 'inbound') {
+      return `${to} ← ${via}`; 
+    } else {
+      return `${via} → ${to}`;
+    }
+  };
+
   const counterparty = activity?.direction === 'inbound' ? activity?.via : activity?.to;
   const callIcon = `bi bi-telephone-${activity?.direction === 'inbound' ? 'inbound' : 'outbound'}`;
 
@@ -48,11 +61,11 @@ const ActivityCard = ({ activity, isArchived }) => {
     <div className="activity-card" onClick={handleCardClick}>
       <div className="activity-card__content">
         <div className="activity-card__image">
-          <img src={Avatar} alt={`User image from ${displayName || 'Unknown'}`} />
+          <img src={Avatar} alt={`User image from ${cardHeader || 'Unknown'}`} />
         </div>
         <div className="activity-card__info">
           <div className="activity-card__info-heading">
-            <h3 className="activity-card__name">{displayName || 'Unknown'}</h3>
+            <h3 className="activity-card__header">{getDisplayName()}</h3>
             <div className="activity-card__actions">
               <div className="activity-card__date">
                 <p className="activity-card__date-text small">{formatDate(activity?.created_at)}</p>
