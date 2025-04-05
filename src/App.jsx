@@ -6,6 +6,8 @@ import Footer from './components/Footer';
 import ActivityFeed from './pages/ActivityFeed';
 import ActivityDetailPage from './pages/ActivityDetailPage';
 import ArchivedCalls from './pages/ArchivedCalls';
+import ProfilePage from './pages/ProfilePage';
+import Settings from './pages/Settings';
 
 const App = () => {
   return (
@@ -16,6 +18,8 @@ const App = () => {
           <Route path="/" element={<ActivityFeed />} />
           <Route path="/activity/:id" element={<ActivityDetailPage />} />
           <Route path="/archived" element={<ArchivedCalls />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/settings" element={<Settings />} />
         </Routes>
       </div>
       <Footer />
