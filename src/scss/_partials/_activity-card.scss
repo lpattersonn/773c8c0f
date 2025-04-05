@@ -1,21 +1,23 @@
 .activity-card {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
-  border-bottom: 1px solid $speer-grey;
-  padding: 16px 10px;
-  &:hover {
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease, box-shadow 0.3s ease;
-    border-radius: 7px;
-    background-color: rgba($speer-grey, .20);
-  }
+  border-top: 1px dashed $speer-grey;
 
   &__content {
     display: flex;
     align-items: center;
     flex: 1;
+    padding: 15px 10px;
+    margin: 10px 0 15px;;
+    &:hover {
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+      border-radius: 7px;
+      background-color: rgba($speer-grey, .20);
+    }
   }
 
   &__image {
@@ -70,9 +72,17 @@
   }
 
   &__date {
+    position: absolute;
+    top: -6px;
+    left: 0;
+    right: 0;
     &-text {
       margin: 0;
       color: $speer-opac-black;
+      width: fit-content;
+      margin: 0 auto;
+      background-color: $speer-white;
+      padding: 0px 3px;
     }
   }
 

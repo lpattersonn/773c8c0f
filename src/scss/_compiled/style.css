@@ -182,23 +182,25 @@ footer .footer-action .phone {
 
 /* Activity Feed Styles */
 .activity-card {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
-  border-bottom: 1px solid #D9D9D9;
-  padding: 16px 10px;
-}
-.activity-card:hover {
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease, box-shadow 0.3s ease;
-  border-radius: 7px;
-  background-color: rgba(217, 217, 217, 0.2);
+  border-top: 1px dashed #D9D9D9;
 }
 .activity-card__content {
   display: flex;
   align-items: center;
   flex: 1;
+  padding: 15px 10px;
+  margin: 10px 0 15px;
+}
+.activity-card__content:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  border-radius: 7px;
+  background-color: rgba(217, 217, 217, 0.2);
 }
 .activity-card__image {
   width: 30px;
@@ -244,9 +246,19 @@ footer .footer-action .phone {
   align-items: center;
   gap: 7px;
 }
+.activity-card__date {
+  position: absolute;
+  top: -6px;
+  left: 0;
+  right: 0;
+}
 .activity-card__date-text {
   margin: 0;
   color: rgba(0, 0, 0, 0.6);
+  width: fit-content;
+  margin: 0 auto;
+  background-color: #ffffff;
+  padding: 0px 3px;
 }
 .activity-card__separator {
   display: flex;
@@ -264,7 +276,7 @@ footer .footer-action .phone {
   display: flex;
   flex-direction: column;
   gap: 0;
-  padding: 10px 10px 0;
+  padding: 20px 10px 0;
   max-height: 100%;
 }
 
