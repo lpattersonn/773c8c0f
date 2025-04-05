@@ -240,6 +240,11 @@ footer .footer-action .phone {
   margin-bottom: 0;
   color: rgba(0, 0, 0, 0.6);
 }
+.activity-card__meta img {
+  width: 10px;
+  height: 10px;
+  margin-right: 3px;
+}
 .activity-card__actions {
   margin-left: auto;
   display: flex;

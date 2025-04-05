@@ -3,6 +3,9 @@ import Avatar from '../assets/images/avatar.svg';
 import { ActivityContext } from '../context/ActivityContext';
 import { useNavigate } from 'react-router-dom';
 import formatPhoneNumber from '../assets/js/helper';
+import Voicemail from '../assets/images/voicemail_icon.svg';
+import Incoming from '../assets/images/incoming_icon.svg';
+import Missed from '../assets/images/missed_icon.svg';
 
 const ActivityCard = ({ activity, isArchived }) => {
   const { selectedActivitiesFeed, selectedActivitiesArchived, toggleSelectActivity } = useContext(ActivityContext);
@@ -27,7 +30,7 @@ const ActivityCard = ({ activity, isArchived }) => {
   const getCallTypeLabel = () => {
     const callTypeMap = {
       missed: 'Missed a call from',
-      answered: 'Received a call from',
+      answered: 'Answered a call from',
     };
     return callTypeMap[activity?.call_type] || 'Received a voicemail from';
   };
@@ -47,7 +50,7 @@ const ActivityCard = ({ activity, isArchived }) => {
   };
 
   const counterparty = activity?.direction === 'inbound' ? formatPhoneNumber(activity?.via) : formatPhoneNumber(activity?.to);
-  const callIcon = `bi bi-telephone-${activity?.direction === 'inbound' ? 'inbound' : 'outbound'}`;
+  // const callIcon = `bi bi-telephone-${activity?.direction === 'inbound' ? 'inbound' : activity?.direction === 'voicemail' ? (<Voicemail />) : ""}`;
 
   const handleActivitySelection = (e) => {
     e.stopPropagation(); // prevent checkbox from triggering navigation
@@ -85,7 +88,10 @@ const ActivityCard = ({ activity, isArchived }) => {
             </div>
           </div>
           <p className="activity-card__meta small">
-            <i className={callIcon}></i> {`${getCallTypeLabel()} ${counterparty || 'Unknown'} at ${formatTime(activity?.created_at)}`}
+            {/* <i className={callIcon}></i>  */}
+            {activity?.call_type === 'answered' ? (<img src={Incoming} />) : activity?.call_type === 'voicemail' ? (<img src={Voicemail} />) : (<img src={Missed} />)}
+            
+            {`${getCallTypeLabel()} ${counterparty || 'Unknown'} at ${formatTime(activity?.created_at)}`}
           </p>
         </div>
       </div>
