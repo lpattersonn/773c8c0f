@@ -12,7 +12,7 @@ const root = ReactDOM.createRoot(document.getElementById('app'));
 root.render(
   <React.StrictMode>
     <ActivityProvider>
-      <BrowserRouter> {/* Only wrap here */}
+      <BrowserRouter>
         <App />
       </BrowserRouter>
     </ActivityProvider>
