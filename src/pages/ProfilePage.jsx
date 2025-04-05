@@ -17,7 +17,7 @@ const ProfilePage = () => {
         </div>
       </div>
       <div className="profile-footer">
-        <button>Edit Profile</button>
+        <button className='button-green'>Edit Profile</button>
       </div>
     </div>
   );

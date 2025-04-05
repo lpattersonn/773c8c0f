@@ -43,19 +43,4 @@
     display: flex;
     justify-content: flex-end;
 }
-
-.profile-footer button {
-    padding: 5px 12px;
-    background-color: $speer-orange;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 13px;
-    transition: background-color 0.3s ease;
-}
-
-.profile-footer button:hover {
-    background-color: $speer-orange;
-}
   

@@ -106,7 +106,7 @@ const ActivityDetailPage = () => {
             <ul>
               {callHistory.map((call) => (
                 <li key={call.id}>
-                  <strong>{call.call_type}</strong> call on {formatDate(call.created_at)} at{' '}
+                  <span>{call.call_type}</span> call on {formatDate(call.created_at)} at{' '}
                   {formatTime(call.created_at)} {/* Display call history */}
                 </li>
               ))}

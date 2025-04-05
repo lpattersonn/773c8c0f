@@ -79,6 +79,27 @@ footer .footer-action img {
 footer .footer-action .phone {
   filter: invert(46%) sepia(96%) saturate(923%) hue-rotate(359deg) brightness(100%) contrast(108%);
 }
+footer .icon-badge {
+  position: relative;
+  display: inline-block;
+}
+footer .icon-badge .badge {
+  position: absolute;
+  top: -13px;
+  right: -6px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 10px;
+  font-weight: bold;
+  line-height: 1;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 .checkbox {
   width: 15px;
@@ -109,6 +130,18 @@ footer .footer-action .phone {
 
 .small {
   font-size: 12px;
+}
+
+.button-green {
+  width: fit-content;
+  padding: 7px 15px;
+  border: none;
+  border-radius: 5px;
+  background-color: rgb(42, 196, 32);
+  font-size: 12px;
+  color: #ffffff;
+  font-weight: 600;
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.25);
 }
 
 .tab-navigation {
@@ -171,7 +204,7 @@ footer .footer-action .phone {
 
 .archive-button {
   width: 100%;
-  padding: 5px 10px;
+  padding: 7px 15px;
   border: none;
   border-radius: 5px;
   background-color: #FF8000;
@@ -322,9 +355,10 @@ footer .footer-action .phone {
 }
 .activity-details .container .details-card ul li {
   list-style: none;
-  margin-bottom: 5px;
+  padding: 10px;
+  border-top: 1px dashed #D9D9D9;
 }
-.activity-details .container .details-card ul li strong {
+.activity-details .container .details-card ul li span {
   text-transform: capitalize;
 }
 
@@ -373,21 +407,6 @@ footer .footer-action .phone {
   justify-content: flex-end;
 }
 
-.profile-footer button {
-  padding: 5px 12px;
-  background-color: #FF8000;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 13px;
-  transition: background-color 0.3s ease;
-}
-
-.profile-footer button:hover {
-  background-color: #FF8000;
-}
-
 .settings-page {
   padding: 20px;
   height: 100%;
@@ -421,18 +440,4 @@ footer .footer-action .phone {
 .settings-page .setting-item input[type=checkbox] {
   width: auto;
   margin-right: 10px;
-}
-.settings-page .save-button {
-  width: fit-content;
-  padding: 5px 12px;
-  background-color: #FF8000;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  font-size: 13px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-.settings-page .save-button:hover {
-  background-color: #FF8000;
 }

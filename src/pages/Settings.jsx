@@ -67,7 +67,7 @@ const Settings = () => {
             Enable Dark Mode
           </label>
         </div>
-        <button type="submit" className="save-button">
+        <button type="submit" className="button-green">
           Save Settings
         </button>
       </form>
