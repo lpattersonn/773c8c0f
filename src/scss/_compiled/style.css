@@ -1,9 +1,10 @@
 @import url("https://fonts.cdnfonts.com/css/rimouski");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 html, body, h1, h2, h3 {
   margin: 0;
   padding: 0;
   border: 0;
-  font-family: "Rimouski", sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 100%;
 }
 
@@ -106,6 +107,10 @@ footer .footer-action .phone {
   transform: rotate(45deg);
 }
 
+.small {
+  font-size: 12px;
+}
+
 .tab-navigation {
   padding-top: 40px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.35);
@@ -144,10 +149,13 @@ footer .footer-action .phone {
   padding: 10px;
   text-decoration: none;
   text-align: center;
-  color: #636363;
+  color: #000;
   transition: background-color 0.3s ease;
   display: block;
   position: relative;
+}
+.tab-navigation__link--active {
+  font-weight: 700;
 }
 .tab-navigation__link--active:after {
   content: "";
@@ -177,13 +185,15 @@ footer .footer-action .phone {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 17px 0;
   cursor: pointer;
   border-bottom: 1px solid #D9D9D9;
+  padding: 15px 10px;
 }
 .activity-card:hover {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease, box-shadow 0.3s ease;
+  border-radius: 7px;
+  background-color: rgba(217, 217, 217, 0.2);
 }
 .activity-card__content {
   display: flex;
@@ -220,17 +230,13 @@ footer .footer-action .phone {
 }
 .activity-card__name {
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 500;
   margin: 0;
   line-height: 1.2;
 }
 .activity-card__meta {
-  color: #636363;
   margin-bottom: 0;
-}
-.activity-card__meta i {
-  margin-right: 1px;
-  color: #636363;
+  color: rgba(0, 0, 0, 0.6);
 }
 .activity-card__actions {
   margin-left: auto;
@@ -240,6 +246,7 @@ footer .footer-action .phone {
 }
 .activity-card__date-text {
   margin: 0;
+  color: rgba(0, 0, 0, 0.6);
 }
 .activity-card__separator {
   display: flex;
@@ -257,7 +264,7 @@ footer .footer-action .phone {
   display: flex;
   flex-direction: column;
   gap: 0;
-  padding: 0;
+  padding: 10px 10px 0;
   max-height: 100%;
 }
 

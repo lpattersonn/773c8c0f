@@ -33,7 +33,6 @@
   &__links {
     display: flex;
     flex-direction: row;
-    // gap: 1rem;
   }
 
   &__link {
@@ -41,12 +40,13 @@
     padding: 10px;
     text-decoration: none;
     text-align: center;
-    color: $speer-dark-grey;
+    color: $speer-black;
     transition: background-color 0.3s ease;
     display: block;
     position: relative;
   
     &--active {
+      font-weight: 700;
       &:after {
         content: "";
         position: absolute;
