@@ -39,7 +39,7 @@ const ActivityDetailPage = () => {
     <div className="activity-details">
       <div className="container">
         <div className="details-card">
-          <h2>call Details:</h2>
+          <h2>Call Details:</h2>
           <p><strong>From:</strong> {activity.from}</p>
           <p><strong>To:</strong> {activity.to}</p>
           <p><strong>Duration:</strong> {activity.duration} seconds</p>

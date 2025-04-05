@@ -31,9 +31,9 @@ const ArchiveButton = ({ onArchive, selectedActivities = [], activities }) => {
 
   // Icon for archive and unarchive actions
   const buttonIcon = isOnArchivedPage
-    ? 'bi bi-file-earmark-zip-fill' // Icon for unarchive
+    ? 'bi bi-arrow-counterclockwise' // Icon for unarchive
     : 'bi bi-archive-fill'; // Icon for archive
-
+<i class="bi bi-arrow-counterclockwise"></i>
   // Modify the button action based on the current page
   const handleAction = () => {
     if (isOnArchivedPage) {

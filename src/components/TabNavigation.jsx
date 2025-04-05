@@ -16,16 +16,14 @@ const TabNavigation = () => {
   } = useContext(ActivityContext);
 
   const isOnArchivedPage = location.pathname === '/archived';
+  const isOnActivityPage = location.pathname.includes('/activity');
 
-  // Track if user manually toggled the "Select All" checkbox
   const [selectAllManuallyTriggered, setSelectAllManuallyTriggered] = useState(false);
 
-  // Reset manual select state when route changes
   useEffect(() => {
     setSelectAllManuallyTriggered(false);
   }, [isOnArchivedPage]);
 
-  // Filter visible activities based on current page
   const visibleActivities = useMemo(
     () => activities.filter(a => a.is_archived === isOnArchivedPage),
     [activities, isOnArchivedPage]
@@ -35,13 +33,11 @@ const TabNavigation = () => {
     ? selectedActivitiesArchived
     : selectedActivitiesFeed;
 
-  // Check if all visible activities are selected
   const areAllSelected = useMemo(() => {
     if (visibleActivities.length === 0) return false;
     const visibleIds = visibleActivities.map(a => a.id).sort();
     const selectedIds = selectedActivities.slice().sort();
-    const result = JSON.stringify(visibleIds) === JSON.stringify(selectedIds);
-    return result;
+    return JSON.stringify(visibleIds) === JSON.stringify(selectedIds);
   }, [visibleActivities, selectedActivities]);
 
   const toggleSelectAll = () => {
@@ -55,10 +51,22 @@ const TabNavigation = () => {
   };
 
   const handleAction = () => {
-    const action = isOnArchivedPage ? 'unarchive' : 'archive';
-    onArchive(action, selectedActivities);
-    setSelectAllManuallyTriggered(false); // Reset checkbox state
-  };  
+    if (isOnActivityPage) {
+      const activityId = location.pathname.split('/').pop();
+      const currentActivity = activities.find(activity => activity.id === activityId);
+      const action = currentActivity?.is_archived ? 'unarchive' : 'archive';
+      onArchive(action, [activityId]);
+    } else {
+      const action = isOnArchivedPage ? 'unarchive' : 'archive';
+      onArchive(action, selectedActivities);
+    }
+
+    setSelectAllManuallyTriggered(false);
+  };
+
+  // Get current activity if on detail page
+  const currentActivityId = location.pathname.split('/').pop();
+  const currentActivity = activities.find(a => a.id === currentActivityId);
 
   return (
     <div className="tab-navigation">
@@ -71,32 +79,53 @@ const TabNavigation = () => {
               </Link>
             </div>
             <div className="actions">
-              <ArchiveButton
-                onArchive={handleAction}
-                selectedActivities={selectedActivities}
-                activities={activities}
-              />
-              <input
-                className="checkbox"
-                type="checkbox"
-                checked={selectAllManuallyTriggered && areAllSelected}
-                onChange={toggleSelectAll}
-                title="Select all"
-                disabled={visibleActivities.length === 0}
-              />
+              {/* Only show ArchiveButton on feed/archived pages */}
+              {!isOnActivityPage && (
+                <>
+                  <ArchiveButton
+                    onArchive={handleAction}
+                    selectedActivities={selectedActivities}
+                    activities={activities}
+                  />
+                  <input
+                    className="checkbox"
+                    type="checkbox"
+                    checked={selectAllManuallyTriggered && areAllSelected}
+                    onChange={toggleSelectAll}
+                    title="Select all"
+                    disabled={visibleActivities.length === 0}
+                  />
+                </>
+              )}
+
+              {/* Show single archive/unarchive button on detail page */}
+              {isOnActivityPage && currentActivity && (
+                <button 
+                  className="archive-button"
+                  onClick={handleAction}
+                  style={{ marginLeft: '10px' }}
+                >
+                  {currentActivity.is_archived ? 'Unarchive Activity' : 'Archive Activity'}
+                </button>
+              )}
             </div>
           </div>
         </div>
+
         <nav className="tab-navigation__links">
           <Link
             to="/"
-            className={`tab-navigation__link ${!isOnArchivedPage && !location.pathname.includes('/activity')   ? "tab-navigation__link--active" : ""}`}
+            className={`tab-navigation__link ${
+              !isOnArchivedPage && !isOnActivityPage ? "tab-navigation__link--active" : ""
+            }`}
           >
             Activity Feed
           </Link>
           <Link
             to="/archived"
-            className={`tab-navigation__link ${isOnArchivedPage ? "tab-navigation__link--active" : ""}`}
+            className={`tab-navigation__link ${
+              isOnArchivedPage ? "tab-navigation__link--active" : ""
+            }`}
           >
             Archived Calls
           </Link>

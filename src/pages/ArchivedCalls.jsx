@@ -13,9 +13,13 @@ const ArchivedCalls = () => {
   return (
     <div className="activity-list">
       {loading ? (
-        <p>Loading...</p>
+        <div className="container">
+          <p>Loading...</p>
+        </div>
       ) : archivedActivities.length === 0 ? (
-        <p className="mt-3">No archived activities available.</p>
+        <div className="container">
+          <p className="mt-3">No archived calls available.</p>
+        </div>
       ) : (
         archivedActivities.map(activity => (
           <ActivityCard

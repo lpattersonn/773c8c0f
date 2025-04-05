@@ -11,9 +11,13 @@ const ActivityFeed = () => {
   return (
     <div className="activity-list">
       {loading ? (
-        <p>Loading...</p>
+        <div className="container">
+          <p>Loading...</p>
+        </div>
       ) : nonArchivedActivities.length === 0 ? (
-        <p className='mt-3'>No activities available.</p>
+        <div className="container">
+          <p className='mt-3'>No calls available.</p>
+        </div>
       ) : (
         nonArchivedActivities.map(activity => (
           <ActivityCard
