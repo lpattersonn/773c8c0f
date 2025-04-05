@@ -1,22 +1,27 @@
 .tab-navigation {
   padding-top: 40px;
   border-bottom: 1px solid rgba(#000, 0.35);
+
   &__header {
     margin-bottom: 15px;
+
     .container {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
+
       .logo {
         svg {
           width: 70px;
           height: 30px;
         }
       }
+
       .actions {
         display: flex;
         flex-direction: row;
         align-items: center;
+
         .checkbox {
           padding-left: 11px;
           margin-left: 11px;
@@ -44,9 +49,10 @@
     transition: background-color 0.3s ease;
     display: block;
     position: relative;
-  
+
     &--active {
       font-weight: 700;
+
       &:after {
         content: "";
         position: absolute;
@@ -59,5 +65,5 @@
         background-color: $speer-orange;
       }
     }
-  }  
+  }
 }

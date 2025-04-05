@@ -1,4 +1,3 @@
-@import url("https://fonts.cdnfonts.com/css/rimouski");
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 html, body, h1, h2, h3, ul, li, a {
   margin: 0;
@@ -6,6 +5,7 @@ html, body, h1, h2, h3, ul, li, a {
   border: 0;
   font-family: "Inter", sans-serif;
   font-size: 100%;
+  box-sizing: border-box;
 }
 
 #app {
@@ -181,7 +181,6 @@ footer .footer-action .phone {
   box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.25);
 }
 
-/* Activity Feed Styles */
 .activity-card {
   position: relative;
   display: flex;

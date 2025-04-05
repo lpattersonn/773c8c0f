@@ -1,11 +1,11 @@
 // Typography
-@import url('https://fonts.cdnfonts.com/css/rimouski');
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
                 
 html, body, h1, h2, h3, ul, li, a {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-family: "Inter", sans-serif;
-    font-size: 100%;
-  }
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-family: "Inter", sans-serif;
+  font-size: 100%;
+  box-sizing: border-box;
+}

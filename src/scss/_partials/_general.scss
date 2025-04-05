@@ -1,114 +1,118 @@
 // App
 #app {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
 
-    .container {
-      padding: 0 20px;
-    }
-    
-    .screen {
-      position: relative;
-      height: 666px;
-      width: 376px;
-      overflow: hidden;
-      z-index: 100;
+  .container {
+    padding: 0 20px;
+  }
+  
+  .screen {
+    position: relative;
+    height: 666px;
+    width: 376px;
+    overflow: hidden;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    background: white;
+    border-radius: 55px;
+    box-shadow:
+      0 8px 20px rgba(0, 0, 0, 0.2),
+      0 6px 6px rgba(0, 0, 0, 0.1);
+    overflow: auto; // Prevent overflow from exceeding container boundary
+    scrollbar-width: none;
+
+    .container-view {
+      flex: 1;
+      padding: 0;
       display: flex;
       flex-direction: column;
-      background: white;
-      border-radius: 55px;
-      box-shadow:
-        0 8px 20px rgba(0, 0, 0, 0.2),
-        0 6px 6px rgba(0, 0, 0, 0.1);
-      overflow: auto; // Prevent overflow from exceeding container boundary
-      scrollbar-width: none;
-  
-      .container-view {
-        flex: 1;
-        padding: 0;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between; // Spread out the content inside container-view
-      }
+      justify-content: space-between; // Spread out the content inside container-view
     }
   }
-  
-  // Body
-  body {
-    background: $speer-white;
-    font-family: helvetica, arial, sans-serif;
-    font-size: 13px;
-    color: $speer-black;
-    line-height: 1;
-  }
-  
-  // Header  
-  header {
-    position: sticky;
-    top: 0;
-    background-color: white;
-    z-index: 10;
-  }
+}
 
-  // Footer
-  footer {
-    position: sticky;
-    bottom: -1px;
-    width: 100%;
-    padding: 30px 0;
-    border-top: 0.5px solid $speer-orange;
-    background: $speer-white;
-    .footer-action {
-      box-shadow: 0px -37px 20px -9px rgba(255, 128, 0, 0.1);
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      justify-items: center;
-      img {
-        width: 20px;
-        height: 20px;
-      }
-      .phone {
-        filter: invert(46%) sepia(96%) saturate(923%) hue-rotate(359deg) brightness(100%) contrast(108%);
-      }
-    }
-  }
+// Body
+body {
+  background: $speer-white;
+  font-family: helvetica, arial, sans-serif;
+  font-size: 13px;
+  color: $speer-black;
+  line-height: 1;
+}
 
-  // Checkbox
-  .checkbox {
-    width: 15px;
-    height: 15px;
-    border-radius: 2px;
-    border: 2px solid $speer-orange;
-    background-color: white;
-    cursor: pointer;
-    appearance: none;
-    transition: all 0.2s ease;
-    position: relative;
+// Header  
+header {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 10;
+}
 
-    &:checked {
-      background-color: $speer-orange;
-      border-color: $speer-orange;
+// Footer
+footer {
+  position: sticky;
+  bottom: -1px;
+  width: 100%;
+  padding: 30px 0;
+  border-top: 0.5px solid $speer-orange;
+  background: $speer-white;
+
+  .footer-action {
+    box-shadow: 0px -37px 20px -9px rgba(255, 128, 0, 0.1);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+
+    img {
+      width: 20px;
+      height: 20px;
     }
 
-    &:checked::before {
-      content: '';
-      position: absolute;
-      top: 2px;
-      left: 4px;
-      width: 4px;
-      height: 8px;
-      border: solid white;
-      border-width: 0 2px 2px 0;
-      transform: rotate(45deg);
+    .phone {
+      filter: invert(46%) sepia(96%) saturate(923%) hue-rotate(359deg) brightness(100%) contrast(108%);
     }
   }
-  // Utility 
-  .small {
-    font-size: 12px;
+}
+
+// Checkbox
+.checkbox {
+  width: 15px;
+  height: 15px;
+  border-radius: 2px;
+  border: 2px solid $speer-orange;
+  background-color: white;
+  cursor: pointer;
+  appearance: none;
+  transition: all 0.2s ease;
+  position: relative;
+
+  &:checked {
+    background-color: $speer-orange;
+    border-color: $speer-orange;
   }
+
+  &:checked::before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 4px;
+    width: 4px;
+    height: 8px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+}
+
+// Utility 
+.small {
+  font-size: 12px;
+}

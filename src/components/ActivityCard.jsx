@@ -50,10 +50,9 @@ const ActivityCard = ({ activity, isArchived }) => {
   };
 
   const counterparty = activity?.direction === 'inbound' ? formatPhoneNumber(activity?.via) : formatPhoneNumber(activity?.to);
-  // const callIcon = `bi bi-telephone-${activity?.direction === 'inbound' ? 'inbound' : activity?.direction === 'voicemail' ? (<Voicemail />) : ""}`;
 
   const handleActivitySelection = (e) => {
-    e.stopPropagation(); // prevent checkbox from triggering navigation
+    e.stopPropagation();
     toggleSelectActivity(activity?.id, isArchived);
   };
 
@@ -88,9 +87,7 @@ const ActivityCard = ({ activity, isArchived }) => {
             </div>
           </div>
           <p className="activity-card__meta small">
-            {/* <i className={callIcon}></i>  */}
             {activity?.call_type === 'answered' ? (<img src={Incoming} />) : activity?.call_type === 'voicemail' ? (<img src={Voicemail} />) : (<img src={Missed} />)}
-            
             {`${getCallTypeLabel()} ${counterparty || 'Unknown'} at ${formatTime(activity?.created_at)}`}
           </p>
         </div>

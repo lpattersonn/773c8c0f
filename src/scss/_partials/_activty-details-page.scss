@@ -1,7 +1,7 @@
 // Activity Detail page
 .activity-details {
   padding: 20px 0;
-  background-color:$speer-lightgrey;
+  background-color: $speer-lightgrey;
   height: 100%;
 
   .container {
@@ -23,20 +23,25 @@
       padding: 20px;
       background-color: $speer-white;
       border-radius: 7px;
+
       p, ul {
         font-size: 12px;
       }
+
       .phone-number {
         color: $speer-orange;
         font-size: 13px;
         font-weight: 600;
       }
+
       ul {
         margin-top: 10px;
         padding: 0;
+
         li {
           list-style: none;
           margin-bottom: 5px;
+
           strong {
             text-transform: capitalize;
           }
