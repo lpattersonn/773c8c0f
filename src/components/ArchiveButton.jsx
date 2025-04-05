@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-const ArchiveButton = ({ onArchive, selectedActivities, activities }) => {
+const ArchiveButton = ({ onArchive, selectedActivities = [], activities }) => {
   const location = useLocation(); // Track the current route
   const [buttonLabel, setButtonLabel] = useState('No activities selected');
+  
+  // Calculate the selected count
   const selected = activities.filter(activity => selectedActivities.includes(activity.id));
   const selectedCount = selected.length;
 
@@ -27,6 +29,7 @@ const ArchiveButton = ({ onArchive, selectedActivities, activities }) => {
     }
   }, [selectedCount, isOnArchivedPage, selected]);
 
+  // Icon for archive and unarchive actions
   const buttonIcon = isOnArchivedPage
     ? 'bi bi-file-earmark-zip-fill' // Icon for unarchive
     : 'bi bi-archive-fill'; // Icon for archive

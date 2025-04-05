@@ -5,7 +5,10 @@ import ArchiveButton from '../components/ArchiveButton';
 import TabNavigation from '../components/TabNavigation';
 
 const ArchivedCalls = () => {
-  const { activities, loading, unarchiveActivity, unarchiveAllActivities } = useContext(ActivityContext);
+  const { activities, loading, selectedActivities, unarchiveActivity, unarchiveAllActivities } = useContext(ActivityContext);
+
+  // Filter for only archived activities
+  const archivedActivities = activities.filter(activity => activity.is_archived);
 
   return (
     <>
@@ -13,16 +16,16 @@ const ArchivedCalls = () => {
         <div className="activity-list">
           {loading ? (
             <p>Loading...</p>
-          ) : activities.length === 0 ? (
+          ) : archivedActivities.length === 0 ? (
             <p>No archived activities available.</p>
           ) : (
-            activities
-              .filter(activity => activity.is_archived) // Only show archived activities
-              .map(activity => (
-                  // <div key={activity.id} onClick={() => unarchiveActivity(activity.id)}>
-                      <ActivityCard activity={activity} />
-                  // </div>
-              ))
+            archivedActivities.map(activity => (
+              <ActivityCard
+                key={activity.id}
+                activity={activity}
+                isArchived={true} // Marking these as archived
+              />
+            ))
           )}
         </div>
       </div>

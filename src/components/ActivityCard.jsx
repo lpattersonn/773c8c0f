@@ -1,21 +1,25 @@
-// src/components/ActivityCard.jsx
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import Avatar from '../assets/images/avatar.svg';
 import { ActivityContext } from '../context/ActivityContext';
 
-const ActivityCard = ({ activity }) => {
-  const { selectedActivities, toggleSelectActivity } = useContext(ActivityContext);
+const ActivityCard = ({ activity, isArchived }) => {
+  const { selectedActivitiesFeed, selectedActivitiesArchived, toggleSelectActivity } = useContext(ActivityContext);
 
-  const isChecked = selectedActivities.includes(activity.id);
+  // Check if the activity is selected
+  const isChecked = isArchived
+    ? selectedActivitiesArchived?.includes(activity?.id)
+    : selectedActivitiesFeed?.includes(activity?.id);
 
-  // Get the date
+  // Format the date to be more readable
   const formatDate = (isoString) => {
+    if (!isoString) return '';
     const date = new Date(isoString);
     return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
   };
 
-  // Get the time
+  // Format the time to be more readable
   const formatTime = (isoString) => {
+    if (!isoString) return '';
     const date = new Date(isoString);
     return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   };
@@ -35,18 +39,18 @@ const ActivityCard = ({ activity }) => {
   // Decide which number to show in the call detail line
   const counterparty = activity?.direction === 'inbound' ? activity?.via : activity?.to;
 
-  // Construct the icon class
+  // Construct the icon class based on call direction
   const callIcon = `bi bi-telephone-${activity?.direction === 'inbound' ? 'inbound' : 'outbound'}`;
 
   return (
     <div className="activity-card">
       <div className="activity-card__content">
         <div className="activity-card__image">
-          <img src={Avatar} alt={`User image from ${displayName}`} />
+          <img src={Avatar} alt={`User image from ${displayName || 'Unknown'}`} />
         </div>
         <div className="activity-card__info">
           <div className="activity-card__info-heading">
-            <h3 className="activity-card__name">{displayName}</h3>
+            <h3 className="activity-card__name">{displayName || 'Unknown'}</h3>
             <div className="activity-card__actions">
               <div className="activity-card__date">
                 <p className="activity-card__date-text small">{formatDate(activity?.created_at)}</p>
@@ -60,12 +64,12 @@ const ActivityCard = ({ activity }) => {
                 className="checkbox"
                 type="checkbox"
                 checked={isChecked}
-                onChange={() => toggleSelectActivity(activity.id)}
+                onChange={() => toggleSelectActivity(activity?.id, isArchived)}
               />
             </div>
           </div>
           <p className="activity-card__meta small">
-            <i className={callIcon}></i> {`${getCallTypeLabel()} ${counterparty} at ${formatTime(activity?.created_at)}`}
+            <i className={callIcon}></i> {`${getCallTypeLabel()} ${counterparty || 'Unknown'} at ${formatTime(activity?.created_at)}`}
           </p>
         </div>
       </div>

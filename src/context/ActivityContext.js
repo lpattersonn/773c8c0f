@@ -5,10 +5,12 @@ export const ActivityContext = createContext();
 
 export const ActivityProvider = ({ children }) => {
   const [activities, setActivities] = useState([]);
-  const [selectedActivities, setSelectedActivities] = useState([]);
+  const [selectedActivitiesFeed, setSelectedActivitiesFeed] = useState([]);  // Activity Feed selections
+  const [selectedActivitiesArchived, setSelectedActivitiesArchived] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isAllArchived, setIsAllArchived] = useState(false); // Track if all are archived
 
+  // Fetch activities from the API
   useEffect(() => {
     const getActivities = async () => {
       const data = await fetchActivities();
@@ -26,55 +28,70 @@ export const ActivityProvider = ({ children }) => {
     ));
   };
 
-  // unarchive a single activity
+  // Unarchive a single activity
   const unarchiveActivity = (id) => {
     setActivities(activities.map(activity =>
       activity.id === id ? { ...activity, is_archived: false } : activity
     ));
   };
 
-  // Archive all activities
+  // Archive all activities (in Feed tab)
   const archiveAllActivities = () => {
     const updatedActivities = activities.map(activity =>
-      selectedActivities.includes(activity.id)
-        ? { ...activity, is_archived: !isAllArchived }
+      selectedActivitiesFeed.includes(activity.id)
+        ? { ...activity, is_archived: true }
         : activity
     );
     setActivities(updatedActivities);
-    setIsAllArchived(!isAllArchived);
-    setSelectedActivities([]); // optionally clear selection
+    setSelectedActivitiesFeed([]); // Clear selections after archiving
   };
-  
 
   // Unarchive all activities (in Archived tab)
   const unarchiveAllActivities = () => {
-    const updatedActivities = activities.map(activity => ({
-      ...activity,
-      is_archived: false, // Set all to unarchived
-    }));
-    setActivities(updatedActivities);
-    setIsAllArchived(false); // Reset archived state
-  };
-
-
-  const toggleSelectActivity = (id) => {
-    setSelectedActivities(prev =>
-      prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]
+    const updatedActivities = activities.map(activity =>
+      selectedActivitiesArchived.includes(activity.id)
+        ? { ...activity, is_archived: false }
+        : activity
     );
-  };
-  
-  const selectAllActivities = () => {
-    const allIds = activities.map(a => a.id);
-    setSelectedActivities(allIds);
-  };
-  
-  const unselectAllActivities = () => {
-    setSelectedActivities([]);
+    setActivities(updatedActivities);
+    setSelectedActivitiesArchived([]); // Clear selections after unarchiving
   };
 
+  // Toggle activity selection (individual)
+  const toggleSelectActivity = (id, isArchived) => {
+    if (isArchived) {
+      setSelectedActivitiesArchived(prev =>
+        prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]
+      );
+    } else {
+      setSelectedActivitiesFeed(prev =>
+        prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]
+      );
+    }
+  };
+
+  // Select all activities (either Feed or Archived)
+  const selectAllActivities = (isArchived) => {
+    const allIds = activities.map(a => a.id);
+    if (isArchived) {
+      setSelectedActivitiesArchived(allIds);
+    } else {
+      setSelectedActivitiesFeed(allIds);
+    }
+  };
+
+  // Unselect all activities (either Feed or Archived)
+  const unselectAllActivities = (isArchived) => {
+    if (isArchived) {
+      setSelectedActivitiesArchived([]);
+    } else {
+      setSelectedActivitiesFeed([]);
+    }
+  };
+
+  // Archive or Unarchive selected activities
   const onArchive = (action, selectedActivities) => {
     if (action === 'archive') {
-      // Archive the selected activities
       const updatedActivities = activities.map(activity =>
         selectedActivities.includes(activity.id)
           ? { ...activity, is_archived: true }
@@ -82,7 +99,6 @@ export const ActivityProvider = ({ children }) => {
       );
       setActivities(updatedActivities);
     } else if (action === 'unarchive') {
-      // Unarchive the selected activities
       const updatedActivities = activities.map(activity =>
         selectedActivities.includes(activity.id)
           ? { ...activity, is_archived: false }
@@ -98,7 +114,8 @@ export const ActivityProvider = ({ children }) => {
       archiveActivity, unarchiveActivity,
       archiveAllActivities, unarchiveAllActivities,
       isAllArchived, onArchive,
-      selectedActivities, toggleSelectActivity,
+      selectedActivitiesFeed, selectedActivitiesArchived, 
+      toggleSelectActivity,
       selectAllActivities, unselectAllActivities
     }}>
       {children}
