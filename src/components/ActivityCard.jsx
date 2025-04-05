@@ -42,6 +42,11 @@ const ActivityCard = ({ activity, isArchived }) => {
   // Construct the icon class based on call direction
   const callIcon = `bi bi-telephone-${activity?.direction === 'inbound' ? 'inbound' : 'outbound'}`;
 
+  // Handle the change for selecting/unselecting an individual activity
+  const handleActivitySelection = () => {
+    toggleSelectActivity(activity?.id, isArchived);
+  };
+
   return (
     <div className="activity-card">
       <div className="activity-card__content">
@@ -64,7 +69,7 @@ const ActivityCard = ({ activity, isArchived }) => {
                 className="checkbox"
                 type="checkbox"
                 checked={isChecked}
-                onChange={() => toggleSelectActivity(activity?.id, isArchived)}
+                onChange={handleActivitySelection} // Handle individual activity selection
               />
             </div>
           </div>

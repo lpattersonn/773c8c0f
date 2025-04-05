@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useMemo, useEffect, useState } from 'react';
 import { ActivityContext } from '../context/ActivityContext';
 import { Link, useLocation } from 'react-router-dom';
 import { ReactComponent as Logo } from '../assets/images/logo.svg';
@@ -15,46 +15,55 @@ const TabNavigation = () => {
     activities
   } = useContext(ActivityContext);
 
-  // Filter activities for feed and archived
-  const feedActivities = activities.filter(a => !a.is_archived);
-  const archivedActivities = activities.filter(a => a.is_archived);
+  const isOnArchivedPage = location.pathname === '/archived';
 
-  // Determine if all items in feed and archived are selected
-  const allSelectedFeed = feedActivities.every(a => selectedActivitiesFeed.includes(a.id));
-  const allSelectedArchived = archivedActivities.every(a => selectedActivitiesArchived.includes(a.id));
+  // Track if user manually toggled the "Select All" checkbox
+  const [selectAllManuallyTriggered, setSelectAllManuallyTriggered] = useState(false);
 
-  const isOnArchivedPage = location.pathname === '/archived'; // Check if we're on the Archived page
+  // Reset manual select state when route changes
+  useEffect(() => {
+    setSelectAllManuallyTriggered(false);
+  }, [isOnArchivedPage]);
+
+  // Filter visible activities based on current page
+  const visibleActivities = useMemo(
+    () => activities.filter(a => a.is_archived === isOnArchivedPage),
+    [activities, isOnArchivedPage]
+  );
+
+  const selectedActivities = isOnArchivedPage
+    ? selectedActivitiesArchived
+    : selectedActivitiesFeed;
+
+  // Check if all visible activities are selected
+  const areAllSelected = useMemo(() => {
+    if (visibleActivities.length === 0) return false;
+    const visibleIds = visibleActivities.map(a => a.id).sort();
+    const selectedIds = selectedActivities.slice().sort();
+    const result = JSON.stringify(visibleIds) === JSON.stringify(selectedIds);
+
+    console.log('👀 Are all selected?', result);
+    console.log('Visible IDs:', visibleIds);
+    console.log('Selected IDs:', selectedIds);
+
+    return result;
+  }, [visibleActivities, selectedActivities]);
 
   const toggleSelectAll = () => {
-    if (isOnArchivedPage) {
-      if (allSelectedArchived) {
-        unselectAllActivities(true);  // Unselect all in archived
-      } else {
-        selectAllActivities(true);   // Select all in archived
-      }
+    if (areAllSelected) {
+      unselectAllActivities(visibleActivities, isOnArchivedPage);
+      setSelectAllManuallyTriggered(false);
     } else {
-      if (allSelectedFeed) {
-        unselectAllActivities(false); // Unselect all in feed
-      } else {
-        selectAllActivities(false);   // Select all in feed
-      }
+      selectAllActivities(visibleActivities, isOnArchivedPage);
+      setSelectAllManuallyTriggered(true);
     }
   };
 
   const handleAction = () => {
-    if (isOnArchivedPage) {
-      // Unarchive selected activities if we're on the archived page
-      onArchive('unarchive', selectedActivitiesArchived);
-    } else {
-      // Archive selected activities if we're on the home page
-      onArchive('archive', selectedActivitiesFeed);
-    }
-  };
-
-  // Determine checkbox checked status
-  const isCheckboxChecked = isOnArchivedPage 
-    ? archivedActivities.length > 0 && allSelectedArchived 
-    : feedActivities.length > 0 && allSelectedFeed;
+    const action = isOnArchivedPage ? 'unarchive' : 'archive';
+    onArchive(action, selectedActivities);
+    setSelectAllManuallyTriggered(false); // Reset checkbox state
+  };  
 
   return (
     <div className="tab-navigation">
@@ -62,22 +71,23 @@ const TabNavigation = () => {
         <div className="tab-navigation__header">
           <div className="container">
             <div className="logo">
-              <Link to="/" >
+              <Link to="/">
                 <Logo />
               </Link>
             </div>
             <div className="actions">
               <ArchiveButton
-                onArchive={handleAction} // Pass handleAction as the onArchive function
-                selectedActivities={isOnArchivedPage ? selectedActivitiesArchived : selectedActivitiesFeed}
+                onArchive={handleAction}
+                selectedActivities={selectedActivities}
                 activities={activities}
               />
               <input
                 className="checkbox"
                 type="checkbox"
-                checked={isCheckboxChecked} // Update checkbox checked status based on conditions
+                checked={selectAllManuallyTriggered && areAllSelected}
                 onChange={toggleSelectAll}
                 title="Select all"
+                disabled={visibleActivities.length === 0}
               />
             </div>
           </div>
@@ -85,7 +95,7 @@ const TabNavigation = () => {
         <nav className="tab-navigation__links">
           <Link
             to="/"
-            className={`tab-navigation__link ${isOnArchivedPage ? "" : "tab-navigation__link--active"}`}
+            className={`tab-navigation__link ${!isOnArchivedPage ? "tab-navigation__link--active" : ""}`}
           >
             Activity Feed
           </Link>

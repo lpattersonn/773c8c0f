@@ -5,7 +5,7 @@ export const ActivityContext = createContext();
 
 export const ActivityProvider = ({ children }) => {
   const [activities, setActivities] = useState([]);
-  const [selectedActivitiesFeed, setSelectedActivitiesFeed] = useState([]);  // Activity Feed selections
+  const [selectedActivitiesFeed, setSelectedActivitiesFeed] = useState([]); // Activity Feed selections
   const [selectedActivitiesArchived, setSelectedActivitiesArchived] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isAllArchived, setIsAllArchived] = useState(false); // Track if all are archived
@@ -58,56 +58,70 @@ export const ActivityProvider = ({ children }) => {
   };
 
   // Toggle activity selection (individual)
-  const toggleSelectActivity = (id, isArchived) => {
+  const toggleSelectActivity = (activityId, isArchived) => {
     if (isArchived) {
-      setSelectedActivitiesArchived(prev =>
-        prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]
-      );
+      // If the activity is archived, toggle its selection in selectedActivitiesArchived
+      setSelectedActivitiesArchived((prevSelected) => {
+        if (prevSelected.includes(activityId)) {
+          // If it's already selected, unselect it
+          return prevSelected.filter((id) => id !== activityId);
+        } else {
+          // If it's not selected, select it
+          return [...prevSelected, activityId];
+        }
+      });
     } else {
-      setSelectedActivitiesFeed(prev =>
-        prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]
-      );
+      // If the activity is from the feed, toggle its selection in selectedActivitiesFeed
+      setSelectedActivitiesFeed((prevSelected) => {
+        if (prevSelected.includes(activityId)) {
+          // If it's already selected, unselect it
+          return prevSelected.filter((id) => id !== activityId);
+        } else {
+          // If it's not selected, select it
+          return [...prevSelected, activityId];
+        }
+      });
     }
   };
 
   // Select all activities (either Feed or Archived)
-  const selectAllActivities = (isArchived) => {
-    const allIds = activities.map(a => a.id);
+  const selectAllActivities = (activities, isArchived) => {
     if (isArchived) {
-      setSelectedActivitiesArchived(allIds);
+      // Select all archived activities
+      setSelectedActivitiesArchived(activities.map(a => a.id));
     } else {
-      setSelectedActivitiesFeed(allIds);
+      // Select all feed activities
+      setSelectedActivitiesFeed(activities.map(a => a.id));
     }
   };
 
   // Unselect all activities (either Feed or Archived)
-  const unselectAllActivities = (isArchived) => {
+  const unselectAllActivities = (activities, isArchived) => {
     if (isArchived) {
+      // Unselect all archived activities
       setSelectedActivitiesArchived([]);
     } else {
+      // Unselect all feed activities
       setSelectedActivitiesFeed([]);
     }
   };
 
   // Archive or Unarchive selected activities
-  const onArchive = (action, selectedActivities) => {
-    if (action === 'archive') {
-      const updatedActivities = activities.map(activity =>
-        selectedActivities.includes(activity.id)
-          ? { ...activity, is_archived: true }
-          : activity
-      );
-      setActivities(updatedActivities);
-    } else if (action === 'unarchive') {
-      const updatedActivities = activities.map(activity =>
-        selectedActivities.includes(activity.id)
-          ? { ...activity, is_archived: false }
-          : activity
-      );
-      setActivities(updatedActivities);
-    }
+  const onArchive = (action, selectedIds) => {
+    // Update the activities list based on the action
+    const updatedActivities = activities.map((activity) =>
+      selectedIds.includes(activity.id)
+        ? { ...activity, is_archived: action === 'archive' }
+        : activity
+    );
+  
+    setActivities(updatedActivities);
+  
+    // Clear selected items after action
+    setSelectedActivitiesFeed([]);
+    setSelectedActivitiesArchived([]);
   };
-
+  
   return (
     <ActivityContext.Provider value={{
       activities, loading,
