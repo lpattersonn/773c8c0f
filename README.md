@@ -1,73 +1,112 @@
-## Summary
+# Activity Feed ReactJS App
 
-The goal of this test is to make you code a small ReactJS app. We have prepared a skeleton app for you, but feel free to change anything (CSS files, HTML structure, JS structure, etc) to suit your needs.
+This is a ReactJS app that simulates an activity feed for call logs. It includes features such as viewing activity details, archiving calls, and unarchiving them. The app allows the user to manage a list of calls by displaying details, allowing archiving actions, and viewing the history of calls.
 
-The app should have the following features:
-- **Activity Feed** - simple list of calls
-- **Activity Detail** - detail of a call
-- **Archive** - the final user should be able to archive (and unarchive) a call. Archived calls will no longer be displayed on the Activity Feed and should have a separate Archived Tab.
-- A button to archive all calls in the activity feed
-- A button to unarchive all calls in the archived calls tab
+## Features
 
-Show us what you can do in 48 hours. You will be assessed on the following parameters: 
-- Focus on design sense (Pay attention to the UI/UX and transitions)
-- React Best Practices
-- Code Readability and Maintainability
-
-## Submission Requirements
-After you're done with the assignment, please submit a link to the **GitHub/Bitbucket repository** (make sure it's public) with your code **AND** a deployment link where our recruiters can interact with the live version. You can use freely available tools like **Netlify, Vercel, Render, etc** to deploy your React application.
-
-Your repository name should be the first 8 digits of a UUID. A random UUID can be generated from any site like this one: https://www.uuidgenerator.net/version4. This is to prevent malicious actors from plagiarizing your submission by searching for it on GitHub, since your repository is public.
-
-For example: Your respository name here will be `036b1c95` and the repository URL that you submit will look like: `https://github.com/<your-username>/036b1c95`
-<img width="782" alt="Screenshot 2024-01-10 at 10 07 47 PM" src="https://github.com/speer-technologies/aircall/assets/66385959/64fd4b89-e288-4e31-ad62-0949a686088a">
-
-Once done, the assessment (along with other details) must be submitted on the following Google Form and NOT via email: https://forms.gle/itbJiaZ1TjToL45D8
-
-**Note:** Submissions that fail to comply with any of the above submission requirements will be removed from any further consideration.
-
-To give you an example/reference, here's what the app could look like:
-
-
-![app](https://user-images.githubusercontent.com/630714/29357034-763d7216-8276-11e7-8bcb-e77d9645dfcc.png)
+- **Activity Feed**: Displays a list of calls with a summary of key information.
+- **Activity Detail**: Displays detailed information about a specific call.
+- **Archiving**: Users can archive and unarchive calls. Archived calls are displayed in a separate tab.
+- **Archive All**: A button that allows users to archive all calls in the activity feed.
+- **Unarchive All**: A button that allows users to unarchive all calls in the archived calls tab.
 
 ## Installation
 
-We're using [yarn](https://yarnpkg.com) here (but you can use npm):
+The app is built using ReactJS. To set up the project, follow these steps:
 
-```
-yarn install
-yarn start
-```
+1. Clone the repository to your local machine:
+    ```bash
+    git clone https://github.com/lpattersonn/773c8c0f.git
+    ```
+2. Navigate to the project directory:
+    ```bash
+    cd 773c8c0f
+    ```
+3. Install dependencies:
+    ```bash
+    yarn install
+    ```
+    Or if you prefer npm:
+    ```bash
+    npm install
+    ```
+4. Start the development server:
+    ```bash
+    yarn start
+    ```
+    Or if you are using npm:
+    ```bash
+    npm start
+    ```
 
-**Note**: Please make sure to run the app in Node 16.
+Make sure to run the app in Node version 16.
 
-## API documentation
+## API Documentation
 
-### Routes
+The app communicates with a sample API to retrieve and manage call data.
 
-Here is the base URL of the API: [https://aircall-api.onrender.com](https://aircall-api.onrender.com/) <br>
+- **Base URL**: [https://aircall-api.onrender.com](https://aircall-api.onrender.com/)
 
-The API is hosted on a free server, which is why the first time you call the API it might throw an error. The server goes to sleep if there hasn't been any activity for a while, but after 30-60 seconds of making the first call, it should work as expected. Please reach out to us in case it doesn't.
+### Endpoints
 
-- **GET** - BASE_URL/activities: get calls to display in the Activity Feed
-- **GET** - BASE_URL/activities/<call_id> retrieve a specific call details
-- **PATCH** - BASE_URL/activities/<call_id> update a call. The only field updatable is `is_archived (bool)`. You'll need to send a JSON in the request body:
-```
-{
-  is_archived: true
-}
-```
-- **PATCH** - BASE_URL/reset: Reset all calls to initial state (usefull if you archived all calls).
+- **GET** - `/activities`: Fetches all activities to display in the Activity Feed.
+- **GET** - `/activities/<call_id>`: Fetches detailed information for a specific call.
+- **PATCH** - `/activities/<call_id>`: Updates a call's `is_archived` status. You can archive or unarchive a call by sending:
+  ```json
+  {
+    "is_archived": true
+  }
+### PATCH - /reset
+Resets all calls to their initial state (useful when all calls are archived).
 
-### Call object
+### Call Object
 
-- **id** - unique ID of call
-- **created_at** - creation date
-- **direction** - `inbound` or `outbound` call
-- **from** - caller's number
-- **to** - callee's number
-- **via** - Aircall number used for the call
-- **duration** - duration of a call (in seconds)
-- **is_archived** - call is archived or not
-- **call_type** - can be a `missed`, `answered` or `voicemail` call.
+- `id`: Unique ID of the call.
+- `created_at`: Timestamp when the call was made.
+- `direction`: The call direction (`inbound` or `outbound`).
+- `from`: The caller's phone number.
+- `to`: The callee's phone number.
+- `via`: The Aircall number used for the call.
+- `duration`: Duration of the call in seconds.
+- `is_archived`: Whether the call is archived (`true` or `false`).
+- `call_type`: The type of call (`missed`, `answered`, or `voicemail`).
+
+---
+
+### Design & User Experience
+
+The app is designed with usability in mind, focusing on:
+
+- Clean and simple UI/UX for ease of interaction.
+- Smooth transitions for switching between the Activity Feed and Activity Detail pages.
+- Clear call-to-action buttons for archiving/unarchiving calls.
+
+---
+
+### Screenshots
+
+#### Activity Feed Page
+![Activity Feed Screenshot](./src/assets/images/activity_feed.png)  
+*Above is a screenshot of the Activity Feed page.*
+
+#### Activity Detail Page
+![Activity Detail Screenshot](./src/assets/images/activity_detail.png)  
+*Above is a screenshot of the Activity Detail page showing call information.*
+
+---
+
+### Deployment
+
+The app is deployed on [Netlify](https://app.netlify.com/) for live interaction. You can access the live version of the app at the following URL:
+
+[Live App](https://leshan-assessment-aircall.netlify.app/)
+
+---
+
+### Assessment Criteria
+
+This project will be assessed based on the following criteria:
+
+- **UI/UX Design**: Attention to design details, user-friendly interface, and smooth transitions.
+- **React Best Practices**: Efficient state management using React Context, clean component structure, and reusable functions.
+- **Code Readability and Maintainability**: Well-organized and documented code, following industry best practices.

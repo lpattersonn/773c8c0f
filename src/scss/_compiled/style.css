@@ -357,6 +357,7 @@ footer .icon-badge .badge {
   list-style: none;
   padding: 10px;
   border-top: 1px dashed #D9D9D9;
+  padding: 15px 10px;
 }
 .activity-details .container .details-card ul li span {
   text-transform: capitalize;
@@ -365,6 +366,7 @@ footer .icon-badge .badge {
   width: 100%;
   position: relative;
   border-top: 1px dashed #D9D9D9;
+  margin: 20px 0;
 }
 .activity-details .container .details-card__date .date {
   position: absolute;

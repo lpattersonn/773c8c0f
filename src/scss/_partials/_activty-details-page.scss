@@ -42,7 +42,7 @@
           list-style: none;
           padding: 10px;
           border-top: 1px dashed $speer-grey;
-
+          padding: 15px 10px;
           span {
             text-transform: capitalize;
           }
@@ -53,6 +53,7 @@
         width: 100%;
         position: relative;
         border-top: 1px dashed $speer-grey;
+        margin: 20px 0;
         .date {
           position: absolute;
           width: fit-content;
