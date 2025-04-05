@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 
 const ArchiveButton = ({ onArchive, selectedActivities = [], activities }) => {
   const location = useLocation(); // Track the current route
-  const [buttonLabel, setButtonLabel] = useState('No activities selected');
+  const [buttonLabel, setButtonLabel] = useState('No call selected');
   
   // Calculate the selected count
   const selected = activities.filter(activity => selectedActivities.includes(activity.id));
@@ -15,16 +15,16 @@ const ArchiveButton = ({ onArchive, selectedActivities = [], activities }) => {
   useEffect(() => {
     // Check if activities are selected
     if (selectedCount === 0) {
-      setButtonLabel('No activities selected');
+      setButtonLabel('No call selected');
     } else {
       // Check the state of selected activities
       const allSelectedAreArchived = selected.every(activity => activity.is_archived);
 
       // Update the label depending on the current page
       if (isOnArchivedPage) {
-        setButtonLabel(allSelectedAreArchived ? 'Unarchive Selected' : 'No activities selected');
+        setButtonLabel(allSelectedAreArchived ? 'Unarchive Selected' : 'No call selected');
       } else {
-        setButtonLabel(allSelectedAreArchived ? 'No activities selected' : 'Archive Selected');
+        setButtonLabel(allSelectedAreArchived ? 'No call selected' : 'Archive Selected');
       }
     }
   }, [selectedCount, isOnArchivedPage, selected]);
@@ -50,7 +50,7 @@ const ArchiveButton = ({ onArchive, selectedActivities = [], activities }) => {
       onClick={handleAction}
       className="archive-button"
       disabled={selectedCount === 0}
-      title={selectedCount === 0 ? 'Select at least one activity' : ''}
+      title={selectedCount === 0 ? 'Select at least one call' : ''}
     >
       <i className={buttonIcon}></i> {buttonLabel}
     </button>

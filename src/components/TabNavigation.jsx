@@ -55,7 +55,9 @@ const TabNavigation = () => {
       const activityId = location.pathname.split('/').pop();
       const currentActivity = activities.find(activity => activity.id === activityId);
       const action = currentActivity?.is_archived ? 'unarchive' : 'archive';
+
       onArchive(action, [activityId]);
+      alert(`Call has been ${action === 'archive' ? 'archived' : 'unarchived'}.`);
     } else {
       const action = isOnArchivedPage ? 'unarchive' : 'archive';
       onArchive(action, selectedActivities);
@@ -64,7 +66,6 @@ const TabNavigation = () => {
     setSelectAllManuallyTriggered(false);
   };
 
-  // Get current activity if on detail page
   const currentActivityId = location.pathname.split('/').pop();
   const currentActivity = activities.find(a => a.id === currentActivityId);
 
@@ -79,7 +80,6 @@ const TabNavigation = () => {
               </Link>
             </div>
             <div className="actions">
-              {/* Only show ArchiveButton on feed/archived pages */}
               {!isOnActivityPage && (
                 <>
                   <ArchiveButton
@@ -98,14 +98,13 @@ const TabNavigation = () => {
                 </>
               )}
 
-              {/* Show single archive/unarchive button on detail page */}
               {isOnActivityPage && currentActivity && (
                 <button 
                   className="archive-button"
                   onClick={handleAction}
                   style={{ marginLeft: '10px' }}
                 >
-                  {currentActivity.is_archived ? 'Unarchive Activity' : 'Archive Activity'}
+                  {currentActivity.is_archived ? 'Unarchive Call' : 'Archive Call'}
                 </button>
               )}
             </div>
