@@ -19,8 +19,6 @@ export const ActivityProvider = ({ children }) => {
     getActivities();
   }, []);
 
-  console.log(activities);
-
   // Archive a single activity
   const archiveActivity = (id) => {
     setActivities(activities.map(activity =>
@@ -73,14 +71,33 @@ export const ActivityProvider = ({ children }) => {
   const unselectAllActivities = () => {
     setSelectedActivities([]);
   };
-  
+
+  const onArchive = (action, selectedActivities) => {
+    if (action === 'archive') {
+      // Archive the selected activities
+      const updatedActivities = activities.map(activity =>
+        selectedActivities.includes(activity.id)
+          ? { ...activity, is_archived: true }
+          : activity
+      );
+      setActivities(updatedActivities);
+    } else if (action === 'unarchive') {
+      // Unarchive the selected activities
+      const updatedActivities = activities.map(activity =>
+        selectedActivities.includes(activity.id)
+          ? { ...activity, is_archived: false }
+          : activity
+      );
+      setActivities(updatedActivities);
+    }
+  };
 
   return (
     <ActivityContext.Provider value={{
       activities, loading,
       archiveActivity, unarchiveActivity,
       archiveAllActivities, unarchiveAllActivities,
-      isAllArchived,
+      isAllArchived, onArchive,
       selectedActivities, toggleSelectActivity,
       selectAllActivities, unselectAllActivities
     }}>

@@ -11,25 +11,40 @@ const ArchiveButton = ({ onArchive, selectedActivities, activities }) => {
 
   // Effect to update the button label based on the selected activities and page
   useEffect(() => {
-    // Check the selected activities and update the button label accordingly
+    // Check if activities are selected
     if (selectedCount === 0) {
       setButtonLabel('No activities selected');
     } else {
+      // Check the state of selected activities
+      const allSelectedAreArchived = selected.every(activity => activity.is_archived);
+
+      // Update the label depending on the current page
       if (isOnArchivedPage) {
-        setButtonLabel('Unarchive Selected');
+        setButtonLabel(allSelectedAreArchived ? 'Unarchive Selected' : 'No activities selected');
       } else {
-        setButtonLabel('Archive Selected');
+        setButtonLabel(allSelectedAreArchived ? 'No activities selected' : 'Archive Selected');
       }
     }
-  }, [selectedCount, isOnArchivedPage]); // Dependencies: selectedCount and current route
+  }, [selectedCount, isOnArchivedPage, selected]);
 
   const buttonIcon = isOnArchivedPage
-    ? 'bi bi-file-earmark-zip-fill'
-    : 'bi bi-archive-fill';
+    ? 'bi bi-file-earmark-zip-fill' // Icon for unarchive
+    : 'bi bi-archive-fill'; // Icon for archive
+
+  // Modify the button action based on the current page
+  const handleAction = () => {
+    if (isOnArchivedPage) {
+      // Unarchive selected activities if we're on the archived page
+      onArchive('unarchive', selectedActivities);
+    } else {
+      // Archive selected activities if we're on the home page
+      onArchive('archive', selectedActivities);
+    }
+  };
 
   return (
     <button
-      onClick={onArchive}
+      onClick={handleAction}
       className="archive-button"
       disabled={selectedCount === 0}
       title={selectedCount === 0 ? 'Select at least one activity' : ''}
