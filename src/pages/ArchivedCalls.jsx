@@ -17,7 +17,7 @@ const ArchivedCalls = () => {
           {loading ? (
             <p>Loading...</p>
           ) : archivedActivities.length === 0 ? (
-            <p>No archived activities available.</p>
+            <p className="mt-3">No archived activities available.</p>
           ) : (
             archivedActivities.map(activity => (
               <ActivityCard

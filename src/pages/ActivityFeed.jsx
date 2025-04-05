@@ -14,13 +14,13 @@ const ActivityFeed = () => {
         {loading ? (
           <p>Loading...</p>
         ) : nonArchivedActivities.length === 0 ? (
-          <p>No activities available.</p>
+          <p className='mt-3'>No activities available.</p>
         ) : (
           nonArchivedActivities.map(activity => (
             <ActivityCard
               key={activity.id}
               activity={activity}
-              isArchived={false} // Marking these as non-archived
+              isArchived={false} // Initial archive arguments
             />
           ))
         )}

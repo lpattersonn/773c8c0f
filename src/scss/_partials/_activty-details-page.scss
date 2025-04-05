@@ -1,20 +1,36 @@
 // Activity Detail page
 .activity-details {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 6px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    border: 1px solid #e0e0e0;
-  
+  padding-top: 40px;
+  background-color:$speer-lightgrey;
+  height: 100%;
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
     p {
       margin: 8px 0;
       font-size: 14px;
     }
-  
+
     h2 {
-      margin-bottom: 15px;
-      font-size: 22px;
+      margin-bottom: 10px;
       font-weight: bold;
-      color: $primary-color;
     }
+    
+    .details-card {
+      padding: 20px;
+      background-color: $speer-white;
+      border-radius: 7px;
+      ul {
+        margin-top: 10px;
+        padding: 0;
+        li {
+          list-style: none;
+          margin-bottom: 5px;
+        }
+      }
+    }
+  }
 }

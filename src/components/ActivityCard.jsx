@@ -1,30 +1,28 @@
 import React, { useContext } from 'react';
 import Avatar from '../assets/images/avatar.svg';
 import { ActivityContext } from '../context/ActivityContext';
+import { useNavigate } from 'react-router-dom';
 
 const ActivityCard = ({ activity, isArchived }) => {
   const { selectedActivitiesFeed, selectedActivitiesArchived, toggleSelectActivity } = useContext(ActivityContext);
+  const navigate = useNavigate();
 
-  // Check if the activity is selected
   const isChecked = isArchived
     ? selectedActivitiesArchived?.includes(activity?.id)
     : selectedActivitiesFeed?.includes(activity?.id);
 
-  // Format the date to be more readable
   const formatDate = (isoString) => {
     if (!isoString) return '';
     const date = new Date(isoString);
     return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
   };
 
-  // Format the time to be more readable
   const formatTime = (isoString) => {
     if (!isoString) return '';
     const date = new Date(isoString);
     return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   };
 
-  // Get a readable description based on the call type
   const getCallTypeLabel = () => {
     const callTypeMap = {
       missed: 'Missed a call from',
@@ -33,22 +31,21 @@ const ActivityCard = ({ activity, isArchived }) => {
     return callTypeMap[activity?.call_type] || 'Received a voicemail from';
   };
 
-  // Decide which user label to show (who the call is coming from/going to)
   const displayName = activity?.direction === 'inbound' ? activity?.to : activity?.via;
-
-  // Decide which number to show in the call detail line
   const counterparty = activity?.direction === 'inbound' ? activity?.via : activity?.to;
-
-  // Construct the icon class based on call direction
   const callIcon = `bi bi-telephone-${activity?.direction === 'inbound' ? 'inbound' : 'outbound'}`;
 
-  // Handle the change for selecting/unselecting an individual activity
-  const handleActivitySelection = () => {
+  const handleActivitySelection = (e) => {
+    e.stopPropagation(); // prevent checkbox from triggering navigation
     toggleSelectActivity(activity?.id, isArchived);
   };
 
+  const handleCardClick = () => {
+    navigate(`/activity/${activity?.id}`);
+  };
+
   return (
-    <div className="activity-card">
+    <div className="activity-card" onClick={handleCardClick}>
       <div className="activity-card__content">
         <div className="activity-card__image">
           <img src={Avatar} alt={`User image from ${displayName || 'Unknown'}`} />
@@ -69,7 +66,7 @@ const ActivityCard = ({ activity, isArchived }) => {
                 className="checkbox"
                 type="checkbox"
                 checked={isChecked}
-                onChange={handleActivitySelection} // Handle individual activity selection
+                onClick={handleActivitySelection}
               />
             </div>
           </div>

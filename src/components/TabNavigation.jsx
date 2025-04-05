@@ -41,11 +41,6 @@ const TabNavigation = () => {
     const visibleIds = visibleActivities.map(a => a.id).sort();
     const selectedIds = selectedActivities.slice().sort();
     const result = JSON.stringify(visibleIds) === JSON.stringify(selectedIds);
-
-    console.log('👀 Are all selected?', result);
-    console.log('Visible IDs:', visibleIds);
-    console.log('Selected IDs:', selectedIds);
-
     return result;
   }, [visibleActivities, selectedActivities]);
 
@@ -95,7 +90,7 @@ const TabNavigation = () => {
         <nav className="tab-navigation__links">
           <Link
             to="/"
-            className={`tab-navigation__link ${!isOnArchivedPage ? "tab-navigation__link--active" : ""}`}
+            className={`tab-navigation__link ${!isOnArchivedPage && !location.pathname.includes('/activity')   ? "tab-navigation__link--active" : ""}`}
           >
             Activity Feed
           </Link>

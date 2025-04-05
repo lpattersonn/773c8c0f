@@ -11,7 +11,6 @@ const AppRouter = () => {
                 <Route path="/" element={<ActivityFeed />} />
                 <Route path="/archived" element={<ArchivedCalls />} />
                 <Route path="/activity/:id" element={<ActivityDetailPage />} />
-                
             </Routes>
         </Router>
     );
